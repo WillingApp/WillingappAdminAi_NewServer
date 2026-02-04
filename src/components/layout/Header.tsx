@@ -1,11 +1,10 @@
 import React from 'react';
 import { Group, Text, Avatar, Box } from '@mantine/core';
+import { useAuth } from '../../context/AuthContext';
 
-interface HeaderProps {
-    userName: string;
-}
+const Header: React.FC = () => {
+    const { user } = useAuth();
 
-const Header: React.FC<HeaderProps> = ({ userName }) => {
     const getGreeting = () => {
         const hour = new Date().getHours();
         if (hour < 12) return 'Good Morning';
@@ -20,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ userName }) => {
             </Box>
             <Group>
                 <Text fw={500} visibleFrom="xs">
-                    Welcome {userName}, {getGreeting()}
+                    Welcome {user?.name || 'User'}, {getGreeting()}
                 </Text>
                 <Avatar radius="xl" color="blue" />
             </Group>

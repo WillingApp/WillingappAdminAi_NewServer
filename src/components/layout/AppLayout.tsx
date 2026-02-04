@@ -20,7 +20,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             padding="md"
         >
             <AppShell.Header>
-                <Header userName="Shachar" />
+                <Header />
             </AppShell.Header>
 
             <AppShell.Navbar>

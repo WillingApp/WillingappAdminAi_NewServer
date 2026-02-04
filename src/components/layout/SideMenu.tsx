@@ -10,16 +10,18 @@ import {
     IconFileCode
 } from '@tabler/icons-react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const SideMenu: React.FC = () => {
     const location = useLocation();
+    const { logout } = useAuth();
 
     const links = [
         { label: 'Dashboard', icon: IconLayoutDashboard, path: '/' },
-        { label: 'Requests', icon: IconGitPullRequest, path: '/requests' },
-        { label: 'Content', icon: IconFileCode, path: '/content' },
         { label: 'Users', icon: IconUsers, path: '/users' },
+        { label: 'Requests', icon: IconGitPullRequest, path: '/requests' },
         { label: 'Reports', icon: IconFileText, path: '/reports' },
+        { label: 'Content', icon: IconFileCode, path: '/content' },
         { label: 'Settings', icon: IconSettings, path: '/settings' },
     ];
 
@@ -44,6 +46,7 @@ const SideMenu: React.FC = () => {
                     color="red"
                     fullWidth
                     leftSection={<IconLogout size="1rem" />}
+                    onClick={logout}
                 >
                     Logout
                 </Button>

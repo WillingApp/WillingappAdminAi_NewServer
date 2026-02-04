@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AppLayout from './components/layout/AppLayout';
 import Dashboard from './pages/Dashboard';
 import Users from './pages/Users';
@@ -7,20 +7,41 @@ import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 import Requests from './pages/Requests';
 import Content from './pages/Content';
+import LoginPage from './pages/LoginPage';
+import { useAuth } from './context/AuthContext';
+import { LoadingOverlay, Box } from '@mantine/core';
 
 function App() {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <Box h="100vh" pos="relative">
+        <LoadingOverlay visible={true} overlayProps={{ blur: 2 }} />
+      </Box>
+    );
+  }
+
   return (
     <BrowserRouter>
-      <AppLayout>
+      {isAuthenticated ? (
+        <AppLayout>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/requests" element={<Requests />} />
+            <Route path="/content" element={<Content />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </AppLayout>
+      ) : (
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/requests" element={<Requests />} />
-          <Route path="/content" element={<Content />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
-      </AppLayout>
+      )}
     </BrowserRouter>
   );
 }

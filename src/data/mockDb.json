@@ -1,0 +1,10 @@
+{
+    "users": [
+        {
+            "email": "Shachar87@gmail.com",
+            "password": "Aa123456",
+            "name": "Shachar Ganot",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBdXRob3JpemVkIjoiMSIsIlVzZXJJZCI6IjMxMjMiLCJleHAiOjE3NzExMzkzMzcsImlzcyI6IkFicmEgU29mdHdhcmUiLCJhdWQiOiJXaWxsaW5nIn0.w577a-I3u8OaPOBZqDi_yHfbeFHlD6lnTy6CSehkSZY"
+        }
+    ]
+}
