@@ -1,22 +1,58 @@
 import React, { useEffect, useMemo } from 'react';
 import { Title, Card, Badge, Group, ThemeIcon } from '@mantine/core';
 import { IconCircleCheck, IconCircleX } from '@tabler/icons-react';
+import { useDebouncedValue } from '@mantine/hooks';
 import userService, { User } from '../services/userService';
 import { useApi } from '../hooks/useApi';
 import { GenericTable, ColumnDef, useTablePagination } from '../components/GenericTable';
 import { UserDetailExpansion } from '../components/Users/UserDetailExpansion';
+import { useTableSearch } from '../context/TableSearchContext';
 import './Users.css';
 
-const ROW_HEIGHT = 46; // Estimated row height with 'sm' vertical spacing
-const UI_OFFSET = 350; // Total height of Header, Footer, Padding, Card Title, etc.
+const ROW_HEIGHT = 46;
+const UI_OFFSET = 350;
 
 const Users: React.FC = () => {
     const { page, setPage, take, skip } = useTablePagination(ROW_HEIGHT, UI_OFFSET);
+    const searchContext = useTableSearch();
+
+    // Get search term from context or default to empty string
+    const searchTerm = searchContext?.searchTerm || '';
+    const [debouncedSearch] = useDebouncedValue(searchTerm, 500);
+
     const { data, loading, error, execute } = useApi(userService.getUsers);
 
+    // Synchronize page-level settings with the global search in header
     useEffect(() => {
-        execute({ take, skip });
-    }, [execute, take, skip]);
+        if (searchContext) {
+            searchContext.setIsVisible(true);
+            searchContext.setPlaceholder('Search users by name or phone...');
+
+            // Clean up when leaving the page
+            return () => {
+                searchContext.setIsVisible(false);
+                searchContext.clearSearch();
+            };
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchContext?.setIsVisible, searchContext?.setPlaceholder, searchContext?.clearSearch]);
+
+    // Reset to page 1 when search term changes
+    useEffect(() => {
+        setPage(1);
+    }, [debouncedSearch, setPage]);
+
+    useEffect(() => {
+        execute({
+            take,
+            skip,
+            Filter: debouncedSearch ? {
+                Search: {
+                    SearchTerm: debouncedSearch
+                }
+            } : undefined
+        });
+    }, [execute, take, skip, debouncedSearch]);
 
     const columns = useMemo<ColumnDef<User>[]>(() => [
         { header: 'ID', key: 'id' },
@@ -75,4 +111,5 @@ const Users: React.FC = () => {
 };
 
 export default Users;
+
 

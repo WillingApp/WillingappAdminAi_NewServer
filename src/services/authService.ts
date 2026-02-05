@@ -17,6 +17,8 @@ export interface LoginResponse {
  * Currently using mock data, but structured to be easily replaced with API calls.
  */
 class AuthService {
+    private currentUser: User | null = null;
+
     /**
      * Simulates a login API call.
      * @replace Replace this with an actual fetch/axios call to your backend.
@@ -31,6 +33,7 @@ class AuthService {
 
         if (userMatch) {
             const { password: _, ...userWithoutPassword } = userMatch;
+            this.currentUser = userWithoutPassword; // Set valid session
             return {
                 success: true,
                 user: userWithoutPassword,
@@ -48,6 +51,15 @@ class AuthService {
      */
     rememberUser(user: User) {
         localStorage.setItem('willingapp_user', JSON.stringify(user));
+        this.currentUser = user;
+    }
+
+    /**
+     * Retrieves user session.
+     * Checks memory first, then localStorage.
+     */
+    getToken(): string | undefined {
+        return this.currentUser?.token || this.getRememberedUser()?.token;
     }
 
     /**
@@ -55,7 +67,11 @@ class AuthService {
      */
     getRememberedUser(): User | null {
         const data = localStorage.getItem('willingapp_user');
-        return data ? JSON.parse(data) : null;
+        const user = data ? JSON.parse(data) : null;
+        if (user && !this.currentUser) {
+            this.currentUser = user; // Sync memory if page reloaded
+        }
+        return user;
     }
 
     /**
@@ -63,6 +79,7 @@ class AuthService {
      */
     logout() {
         localStorage.removeItem('willingapp_user');
+        this.currentUser = null;
     }
 }
 

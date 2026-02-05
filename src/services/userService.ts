@@ -28,12 +28,17 @@ class UserService {
      * @returns { data: { items: User[], total: number } }
      */
     async getUsers(params: PaginationParams): Promise<UsersResponse> {
-        const query = new URLSearchParams({
+        const queryParams: Record<string, string> = {
             take: params.take.toString(),
             skip: params.skip.toString(),
             IncludeTotal: 'true',
-        }).toString();
+        };
 
+        if (params.Filter?.Search?.SearchTerm) {
+            queryParams['Filter.Search.SearchTerm'] = params.Filter.Search.SearchTerm;
+        }
+
+        const query = new URLSearchParams(queryParams).toString();
         return request<UsersResponse>(`/User?${query}`);
     }
 

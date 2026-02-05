@@ -29,8 +29,7 @@ async function handleResponse(response: Response) {
  * Common headers with Auth token
  */
 const getHeaders = () => {
-    const user = authService.getRememberedUser();
-    const token = user?.token;
+    const token = authService.getToken();
 
     const headers: Record<string, string> = {
         'Content-Type': 'application/json',

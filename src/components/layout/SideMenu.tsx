@@ -5,25 +5,27 @@ import {
     IconUsers,
     IconSettings,
     IconFileText,
-    IconLogout,
     IconGitPullRequest,
-    IconFileCode
+    IconFileCode,
+    IconUsersGroup,
+    IconHelp
 } from '@tabler/icons-react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 
 const SideMenu: React.FC = () => {
     const location = useLocation();
-    const { logout } = useAuth();
 
     const links = [
         { label: 'Dashboard', icon: IconLayoutDashboard, path: '/' },
         { label: 'Users', icon: IconUsers, path: '/users' },
         { label: 'Requests', icon: IconGitPullRequest, path: '/requests' },
         { label: 'Reports', icon: IconFileText, path: '/reports' },
+        { label: 'Feedbacks', icon: IconHelp, path: '/feedbacks' },
+        { label: 'Groups', icon: IconUsersGroup, path: '/groups' },
         { label: 'Content', icon: IconFileCode, path: '/content' },
-        { label: 'Settings', icon: IconSettings, path: '/settings' },
     ];
+
+    const settingsLink = { label: 'Settings', icon: IconSettings, path: '/settings' };
 
     return (
         <Box p="md" h="100%" display="flex" style={{ flexDirection: 'column' }}>
@@ -39,19 +41,17 @@ const SideMenu: React.FC = () => {
                     />
                 ))}
             </Stack>
-
-            <Box pt="md" style={{ borderTop: '1px solid var(--mantine-color-gray-3)' }}>
-                <Button
-                    variant="light"
-                    color="red"
-                    fullWidth
-                    leftSection={<IconLogout size="1rem" />}
-                    onClick={logout}
-                >
-                    Logout
-                </Button>
+            <Box mt="auto">
+                <NavLink
+                    key={settingsLink.path}
+                    label={settingsLink.label}
+                    leftSection={<settingsLink.icon size="1rem" stroke={1.5} />}
+                    component={Link}
+                    to={settingsLink.path}
+                    active={location.pathname === settingsLink.path}
+                />
             </Box>
-        </Box>
+        </Box >
     );
 };
 
