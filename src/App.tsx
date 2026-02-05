@@ -7,6 +7,8 @@ import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 import Requests from './pages/Requests';
 import Content from './pages/Content';
+import Groups from './pages/Groups';
+import Feedbacks from './pages/Feedbacks';
 import LoginPage from './pages/LoginPage';
 import { useAuth } from './context/AuthContext';
 import { LoadingOverlay, Box } from '@mantine/core';
@@ -30,6 +32,8 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/requests" element={<Requests />} />
             <Route path="/content" element={<Content />} />
+            <Route path="/groups" element={<Groups />} />
+            <Route path="/feedbacks" element={<Feedbacks />} />
             <Route path="/users" element={<Users />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/settings" element={<Settings />} />
