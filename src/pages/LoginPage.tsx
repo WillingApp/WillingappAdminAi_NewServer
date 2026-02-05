@@ -65,7 +65,7 @@ const LoginPage: React.FC = () => {
                 <form onSubmit={handleSubmit}>
                     <TextInput
                         label="Email"
-                        placeholder="Shachar87@gmail.com"
+                        placeholder="example@gmail.com"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.currentTarget.value)}

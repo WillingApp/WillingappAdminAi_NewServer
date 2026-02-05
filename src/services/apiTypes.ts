@@ -5,6 +5,11 @@
 export interface PaginationParams {
     take: number;
     skip: number;
+    Filter?: {
+        Search?: {
+            SearchTerm?: string;
+        };
+    };
 }
 
 export interface ApiResponse<T> {
