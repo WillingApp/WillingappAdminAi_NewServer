@@ -3,6 +3,7 @@ import { AppShell } from '@mantine/core';
 import Header from './Header';
 import SideMenu from './SideMenu';
 import Footer from './Footer';
+import './AppLayout.css';
 
 interface AppLayoutProps {
     children: React.ReactNode;
@@ -27,7 +28,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 <SideMenu />
             </AppShell.Navbar>
 
-            <AppShell.Main>
+            <AppShell.Main className="AppLayout-main">
                 {children}
             </AppShell.Main>
 

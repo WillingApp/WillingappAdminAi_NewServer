@@ -2,17 +2,21 @@ import { request } from './apiClient';
 import { PaginationParams, ApiResponse } from './apiTypes';
 
 export interface User {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    role: string;
-    isActive: boolean;
-    createdAt?: string;
-    updatedAt?: string;
+    id: number;
+    name: string | null;
+    phone: string | null;
+    countryId: number;
+    languageId: number;
+    statusId: number;
+    imageUrl: string | null;
+    creationTime: string;
+    updateTime: string;
 }
 
-export interface UsersResponse extends ApiResponse<User[]> { }
+export interface UsersResponse extends ApiResponse<{
+    items: User[];
+    total: number;
+}> { }
 
 /**
  * Service for working with User related endpoints.
@@ -21,16 +25,15 @@ class UserService {
     /**
      * Fetches users with pagination.
      * @param params { take, skip }
-     * @returns { data: User[], total: number, error?: string }
+     * @returns { data: { items: User[], total: number } }
      */
     async getUsers(params: PaginationParams): Promise<UsersResponse> {
         const query = new URLSearchParams({
-            Take: params.take.toString(),
-            Skip: params.skip.toString(),
+            take: params.take.toString(),
+            skip: params.skip.toString(),
+            IncludeTotal: 'true',
         }).toString();
 
-        // Assuming the API returns the structure { data: User[], total: number }
-        // If the API returns a flat array, we would need to adjust this logic.
         return request<UsersResponse>(`/User?${query}`);
     }
 

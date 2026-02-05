@@ -1,0 +1,18 @@
+/* GenericTable.css */
+.GenericTable-container {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.GenericTable-scrollArea {
+    flex: 1;
+}
+
+.GenericTable-row-clickable {
+    cursor: pointer;
+}
+
+.GenericTable-row-default {
+    cursor: default;
+}
