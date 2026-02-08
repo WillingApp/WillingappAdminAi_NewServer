@@ -9,7 +9,7 @@ import Requests from './pages/Requests';
 import Content from './pages/Content';
 import Groups from './pages/Groups';
 import Feedbacks from './pages/Feedbacks';
-import LoginPage from './pages/LoginPage';
+import Login from './pages/Login';
 import { useAuth } from './context/AuthContext';
 import { LoadingOverlay, Box } from '@mantine/core';
 
@@ -42,7 +42,7 @@ function App() {
         </AppLayout>
       ) : (
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       )}

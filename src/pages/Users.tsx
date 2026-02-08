@@ -7,7 +7,7 @@ import { useApi } from '../hooks/useApi';
 import { GenericTable, ColumnDef, useTablePagination } from '../components/GenericTable';
 import { UserDetailExpansion } from '../components/Users/UserDetailExpansion';
 import { useTableSearch } from '../context/TableSearchContext';
-import './Users.css';
+import './css/Users.css';
 
 const ROW_HEIGHT = 46;
 const UI_OFFSET = 350;
