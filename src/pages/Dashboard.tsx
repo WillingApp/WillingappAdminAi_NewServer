@@ -154,25 +154,41 @@ const Dashboard: React.FC = () => {
             </Group>
 
             {/* KPI Section */}
-            <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="md">
+            <SimpleGrid cols={{ base: 1, sm: 2, lg: 3, xl: 5 }} spacing="md">
                 <KpiCard
                     title="Total Users"
+                    subtitle="(Between dates)"
                     value={data.summary.totalUsers.current}
                     trend={data.summary.totalUsers.trend}
                     isPositive={data.summary.totalUsers.isPositive}
                 />
                 <KpiCard
-                    title="Active Posts"
-                    value={data.summary.activePosts.current}
-                    trend={data.summary.activePosts.trend}
-                    isPositive={data.summary.activePosts.isPositive}
+                    title="Total Requests"
+                    subtitle="(Between dates)"
+                    value={data.summary.totalRequests.current}
+                    trend={data.summary.totalRequests.trend}
+                    isPositive={data.summary.totalRequests.isPositive}
                 />
                 <KpiCard
-                    title="Monthly Growth"
-                    value={data.summary.monthlyGrowth.current}
-                    trend={data.summary.monthlyGrowth.trend}
-                    isPositive={data.summary.monthlyGrowth.isPositive}
-                    isGrowthRate
+                    title="Active Requests"
+                    subtitle="(Status open)"
+                    value={data.summary.activeRequests.current}
+                    trend={data.summary.activeRequests.trend}
+                    isPositive={data.summary.activeRequests.isPositive}
+                />
+                <KpiCard
+                    title="Active Users"
+                    subtitle="(Connected last 60 days)"
+                    value={data.summary.activeUsers.current}
+                    trend={data.summary.activeUsers.trend}
+                    isPositive={data.summary.activeUsers.isPositive}
+                />
+                <KpiCard
+                    title="Unique Users"
+                    subtitle="(Users posted last 30 days)"
+                    value={data.summary.uniqueUsersRequests.current}
+                    trend={data.summary.uniqueUsersRequests.trend}
+                    isPositive={data.summary.uniqueUsersRequests.isPositive}
                 />
             </SimpleGrid>
 
@@ -182,7 +198,7 @@ const Dashboard: React.FC = () => {
                     <Title order={3} size="h4" mb="lg">User Growth</Title>
                     <LineChart
                         h={300}
-                        data={data.charts.userGrowth}
+                        data={data.userGrowth}
                         dataKey="month"
                         series={[
                             { name: 'count', color: 'blue.6' },
@@ -198,14 +214,14 @@ const Dashboard: React.FC = () => {
                     <Title order={3} size="h4" mb="lg">Category Distribution</Title>
                     <Grid align="center" gutter="xl">
                         {/* Legend on the left */}
-                        <Grid.Col span={{ base: 12, md: 3 }}>
+                        <Grid.Col span={{ base: 12, md: 4 }}>
                             <Stack gap="xs">
-                                {data.charts.categoryDistribution.map((item: CategoryData) => (
+                                {data.categoryDistribution.map((item: CategoryData) => (
                                     <Group key={item.label} gap="xs" wrap="nowrap">
                                         <div style={{
                                             width: 10,
                                             height: 10,
-                                            backgroundColor: item.hex,
+                                            backgroundColor: item.color,
                                             borderRadius: '50%',
                                             flexShrink: 0
                                         }} />
@@ -218,7 +234,7 @@ const Dashboard: React.FC = () => {
                         </Grid.Col>
 
                         {/* Centered Filled Pie Chart */}
-                        <Grid.Col span={{ base: 12, md: 6 }}>
+                        <Grid.Col span={{ base: 12, md: 8 }}>
                             <Center>
                                 <PieChart
                                     withTooltip
@@ -227,17 +243,14 @@ const Dashboard: React.FC = () => {
                                     labelsPosition="inside"
                                     size={240}
                                     strokeWidth={0}
-                                    data={data.charts.categoryDistribution.map((item: CategoryData) => ({
+                                    data={data.categoryDistribution.map((item: CategoryData) => ({
                                         name: item.label,
                                         value: item.value,
-                                        color: item.hex
+                                        color: item.color
                                     }))}
                                 />
                             </Center>
                         </Grid.Col>
-
-                        {/* Spacer for centering */}
-                        <Grid.Col span={{ base: 0, md: 3 }} />
                     </Grid>
                 </Paper>
             </SimpleGrid>
@@ -248,26 +261,35 @@ const Dashboard: React.FC = () => {
 // Helper Component for KPI Cards
 interface KpiCardProps {
     title: string;
+    subtitle?: string;
     value: number;
     trend: number;
     isPositive: boolean;
     isGrowthRate?: boolean;
 }
 
-const KpiCard: React.FC<KpiCardProps> = ({ title, value, trend, isPositive, isGrowthRate }) => {
+const KpiCard: React.FC<KpiCardProps> = ({ title, subtitle, value, trend, isPositive, isGrowthRate }) => {
     const diff = Math.abs(trend);
 
     return (
         <Paper withBorder p="md" radius="md" shadow="sm">
-            <Group justify="space-between">
-                <Text size="xs" c="dimmed" fw={700} tt="uppercase">
-                    {title}
-                </Text>
+            <Group justify="space-between" align="flex-start" wrap="nowrap">
+                <Stack gap={0}>
+                    <Text size="xs" c="dimmed" fw={700} tt="uppercase">
+                        {title}
+                    </Text>
+                    {subtitle && (
+                        <Text size="xs" c="dimmed" fw={500} style={{ fontStyle: 'italic' }}>
+                            {subtitle}
+                        </Text>
+                    )}
+                </Stack>
                 <ThemeIcon
                     color={isPositive ? 'teal' : 'red'}
                     variant="light"
                     size={38}
                     radius="md"
+                    style={{ flexShrink: 0 }}
                 >
                     {isPositive ? (
                         <IconArrowUpRight style={{ width: rem(24), height: rem(24) }} stroke={1.5} />

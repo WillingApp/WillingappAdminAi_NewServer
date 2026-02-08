@@ -14,20 +14,19 @@ export interface GrowthData {
 export interface CategoryData {
     label: string;
     value: number;
-    hex: string;
-    color?: string; // Optional for manual color overrides if needed by charts
+    color: string;
 }
 
 export interface DashboardData {
     summary: {
         totalUsers: SummaryItem;
-        activePosts: SummaryItem;
-        monthlyGrowth: SummaryItem;
+        totalRequests: SummaryItem;
+        activeRequests: SummaryItem;
+        activeUsers: SummaryItem;
+        uniqueUsersRequests: SummaryItem;
     };
-    charts: {
-        userGrowth: GrowthData[];
-        categoryDistribution: CategoryData[];
-    };
+    userGrowth: GrowthData[];
+    categoryDistribution: CategoryData[];
 }
 
 // In a real scenario, this would likely come from an environment variable
@@ -44,21 +43,6 @@ export const fetchDashboardData = async (startDate: Date | null, endDate: Date |
         console.log('[DashboardService] Fetching default data (no date range specified)');
     }
 
-    // Cast the imported JSON to the typed interface
-    // In a real app, this is where we would do: axios.get(`${API_URL}/dashboard?start=...&end=...`)
-    const data = dashboardDataRaw.dashboardData as unknown as DashboardData;
-
-    // Transform data if necessary (e.g., ensuring colors are mapped for Mantine)
-    const transformedChartData = {
-        ...data,
-        charts: {
-            ...data.charts,
-            categoryDistribution: data.charts.categoryDistribution.map(item => ({
-                ...item,
-                color: item.hex // Map 'hex' to 'color' property if chart library expects it, though we might use 'hex' directly
-            }))
-        }
-    };
-
-    return transformedChartData;
+    // The imported JSON is now the DashboardData structure itself
+    return dashboardDataRaw as unknown as DashboardData;
 };
