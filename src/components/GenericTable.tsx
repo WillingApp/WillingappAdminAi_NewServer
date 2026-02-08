@@ -111,7 +111,14 @@ export function GenericTable<T extends { id: string | number }>({
                                 >
                                     {columns.map((col, index) => (
                                         <Table.Td key={index}>
-                                            {col.render ? col.render(item) : (item[col.key as keyof T] as React.ReactNode)}
+                                            {(() => {
+                                                const content = col.render ? col.render(item) : (item[col.key as keyof T] as any);
+                                                if (typeof content === 'object' && content !== null && !React.isValidElement(content)) {
+                                                    // console.warn('Attempted to render object in GenericTable:', col.key, content);
+                                                    return JSON.stringify(content);
+                                                }
+                                                return content;
+                                            })()}
                                         </Table.Td>
                                     ))}
                                 </Table.Tr>
