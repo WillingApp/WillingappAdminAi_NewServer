@@ -27,6 +27,7 @@ import { IconArrowUpRight, IconArrowDownRight, IconCalendar, IconAlertCircle, Ic
 import { fetchDashboardData, DashboardData, SummaryItem, CategoryData } from '../services/dashboardService';
 import '@mantine/charts/styles.css';
 import '@mantine/dates/styles.css';
+import DashboardAISummary from '../components/DashboardAISummary';
 
 const Dashboard: React.FC = () => {
     const theme = useMantineTheme();
@@ -254,6 +255,9 @@ const Dashboard: React.FC = () => {
                     </Grid>
                 </Paper>
             </SimpleGrid>
+
+            {/* AI Summary Section */}
+            <DashboardAISummary data={data} />
         </Stack>
     );
 };
