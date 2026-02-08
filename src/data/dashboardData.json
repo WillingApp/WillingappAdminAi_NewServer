@@ -1,0 +1,100 @@
+{
+    "dashboardData": {
+        "summary": {
+            "totalUsers": {
+                "current": 12450,
+                "trend": 12.5,
+                "isPositive": true
+            },
+            "activePosts": {
+                "current": 3842,
+                "trend": 4.2,
+                "isPositive": true
+            },
+            "monthlyGrowth": {
+                "current": 250,
+                "trend": -5.1,
+                "isPositive": false
+            }
+        },
+        "charts": {
+            "userGrowth": [
+                {
+                    "month": "Jan",
+                    "count": 450
+                },
+                {
+                    "month": "Feb",
+                    "count": 520
+                },
+                {
+                    "month": "Mar",
+                    "count": 610
+                },
+                {
+                    "month": "Apr",
+                    "count": 580
+                },
+                {
+                    "month": "May",
+                    "count": 890
+                },
+                {
+                    "month": "Jun",
+                    "count": 1100
+                },
+                {
+                    "month": "Jul",
+                    "count": 1250
+                },
+                {
+                    "month": "Aug",
+                    "count": 1400
+                },
+                {
+                    "month": "Sep",
+                    "count": 1350
+                },
+                {
+                    "month": "Oct",
+                    "count": 1600
+                },
+                {
+                    "month": "Nov",
+                    "count": 1850
+                },
+                {
+                    "month": "Dec",
+                    "count": 2100
+                }
+            ],
+            "categoryDistribution": [
+                {
+                    "label": "טכנולוגיה",
+                    "value": 45,
+                    "hex": "#fdcb6e"
+                },
+                {
+                    "label": "ספורט",
+                    "value": 25,
+                    "hex": "#e17055"
+                },
+                {
+                    "label": "אוכל",
+                    "value": 15,
+                    "hex": "#00b894"
+                },
+                {
+                    "label": "בידור",
+                    "value": 10,
+                    "hex": "#0984e3"
+                },
+                {
+                    "label": "אחר",
+                    "value": 5,
+                    "hex": "#6c5ce7"
+                }
+            ]
+        }
+    }
+}
