@@ -1,0 +1,11 @@
+.Groups-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Groups-tableContainer {
+    flex: 1;
+    overflow: hidden;
+    margin-top: 10px;
+}

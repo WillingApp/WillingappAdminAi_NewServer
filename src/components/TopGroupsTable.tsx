@@ -12,7 +12,7 @@ import {
     Alert,
 } from '@mantine/core';
 import { IconAlertCircle, IconTrendingUp, IconTrendingDown, IconMinus } from '@tabler/icons-react';
-import { fetchTopGroups, TopGroup } from '../services/groupService';
+import groupService, { TopGroup } from '../services/groupService';
 
 const TopGroupsTable: React.FC = () => {
     const [groups, setGroups] = useState<TopGroup[]>([]);
@@ -24,7 +24,7 @@ const TopGroupsTable: React.FC = () => {
             setLoading(true);
             setError(null);
             try {
-                const data = await fetchTopGroups();
+                const data = await groupService.fetchTopGroups();
                 setGroups(data);
             } catch (err) {
                 console.error('Failed to fetch top groups:', err);

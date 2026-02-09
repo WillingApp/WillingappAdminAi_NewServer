@@ -69,12 +69,20 @@ export async function request<T>(
 }
 
 /**
- * Guidance for adding other methods:
- * 
- * To add POST:
- * export async function post<T>(endpoint: string, data: any) {
- *   return request<T>(endpoint, { method: 'POST', body: JSON.stringify(data) });
- * }
- * 
- * Similarity for PUT (method: 'PUT') and DELETE (method: 'DELETE').
+ * Helper for POST requests
  */
+export async function post<T>(endpoint: string, data: any): Promise<T> {
+    return request<T>(endpoint, {
+        method: 'POST',
+        body: JSON.stringify(data),
+    });
+}
+
+/**
+ * Helper for DELETE requests
+ */
+export async function del<T>(endpoint: string): Promise<T> {
+    return request<T>(endpoint, {
+        method: 'DELETE',
+    });
+}
