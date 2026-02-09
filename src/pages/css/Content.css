@@ -1,0 +1,15 @@
+/* Content.css */
+.Content-card {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 150px);
+    width: 100%;
+}
+
+.Content-grid {
+    flex: 1;
+}
+
+.Content-sidebar {
+    height: 100%;
+}
