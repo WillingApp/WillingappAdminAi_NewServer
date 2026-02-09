@@ -61,45 +61,43 @@ const FAQSection: React.FC<FAQSectionProps> = ({ languageId }) => {
                     <Text c="dimmed">No FAQ items found for this language.</Text>
                 </Center>
             ) : (
-                <Paper withBorder radius="md" style={{ overflow: 'hidden' }}>
-                    <Table striped highlightOnHover verticalSpacing="xs">
-                        <Table.Thead>
-                            <Table.Tr>
-                                <Table.Th style={{ width: 40 }}>#</Table.Th>
-                                <Table.Th>Question</Table.Th>
-                                <Table.Th>Answer</Table.Th>
-                                <Table.Th style={{ width: 100 }}>Actions</Table.Th>
+                <Table striped highlightOnHover verticalSpacing="xs">
+                    <Table.Thead>
+                        <Table.Tr>
+                            <Table.Th style={{ width: 40 }}>#</Table.Th>
+                            <Table.Th>Question</Table.Th>
+                            <Table.Th>Answer</Table.Th>
+                            <Table.Th style={{ width: 100 }}>Actions</Table.Th>
+                        </Table.Tr>
+                    </Table.Thead>
+                    <Table.Tbody>
+                        {items.map((item, index) => (
+                            <Table.Tr key={item.id || index}>
+                                <Table.Td>
+                                    <Text size="sm" c="dimmed">{item.displayOrder || index + 1}</Text>
+                                </Table.Td>
+                                <Table.Td fw={500}>{item.question || <Text c="red" size="xs">Missing Question</Text>}</Table.Td>
+                                <Table.Td>
+                                    <Text size="sm" lineClamp={2}>{item.answer || <Text c="red" size="xs">Missing Answer</Text>}</Text>
+                                </Table.Td>
+                                <Table.Td>
+                                    <Group gap={4} wrap="nowrap">
+                                        <Tooltip label="Edit">
+                                            <ActionIcon variant="light" color="blue" onClick={() => setEditingItem(item)}>
+                                                <IconEdit size={16} />
+                                            </ActionIcon>
+                                        </Tooltip>
+                                        <Tooltip label="Delete">
+                                            <ActionIcon variant="light" color="red" onClick={() => remove(item.id)}>
+                                                <IconTrash size={16} />
+                                            </ActionIcon>
+                                        </Tooltip>
+                                    </Group>
+                                </Table.Td>
                             </Table.Tr>
-                        </Table.Thead>
-                        <Table.Tbody>
-                            {items.map((item, index) => (
-                                <Table.Tr key={item.id || index}>
-                                    <Table.Td>
-                                        <Text size="sm" c="dimmed">{item.displayOrder || index + 1}</Text>
-                                    </Table.Td>
-                                    <Table.Td fw={500}>{item.question || <Text c="red" size="xs">Missing Question</Text>}</Table.Td>
-                                    <Table.Td>
-                                        <Text size="sm" lineClamp={2}>{item.answer || <Text c="red" size="xs">Missing Answer</Text>}</Text>
-                                    </Table.Td>
-                                    <Table.Td>
-                                        <Group gap={4} wrap="nowrap">
-                                            <Tooltip label="Edit">
-                                                <ActionIcon variant="light" color="blue" onClick={() => setEditingItem(item)}>
-                                                    <IconEdit size={16} />
-                                                </ActionIcon>
-                                            </Tooltip>
-                                            <Tooltip label="Delete">
-                                                <ActionIcon variant="light" color="red" onClick={() => remove(item.id)}>
-                                                    <IconTrash size={16} />
-                                                </ActionIcon>
-                                            </Tooltip>
-                                        </Group>
-                                    </Table.Td>
-                                </Table.Tr>
-                            ))}
-                        </Table.Tbody>
-                    </Table>
-                </Paper>
+                        ))}
+                    </Table.Tbody>
+                </Table>
             )}
 
             {/* Modal for adding/editing */}
