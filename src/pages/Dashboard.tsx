@@ -27,7 +27,7 @@ import { IconArrowUpRight, IconArrowDownRight, IconCalendar, IconAlertCircle, Ic
 import { fetchDashboardData, DashboardData, SummaryItem, CategoryData } from '../services/dashboardService';
 import '@mantine/charts/styles.css';
 import '@mantine/dates/styles.css';
-import DashboardAISummary from '../components/DashboardAISummary';
+import TopGroupsTable from '../components/TopGroupsTable';
 
 const Dashboard: React.FC = () => {
     const theme = useMantineTheme();
@@ -256,8 +256,8 @@ const Dashboard: React.FC = () => {
                 </Paper>
             </SimpleGrid>
 
-            {/* AI Summary Section */}
-            <DashboardAISummary data={data} />
+            {/* Top Groups Table */}
+            <TopGroupsTable />
         </Stack>
     );
 };

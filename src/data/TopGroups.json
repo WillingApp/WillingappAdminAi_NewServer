@@ -1,0 +1,49 @@
+{
+    "topGroups": [
+        {
+            "id": 1,
+            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Mada_logo.svg/250px-Mada_logo.svg.png",
+            "name": "מגן דוד אדום",
+            "admin": "יוסי פרץ",
+            "usersCount": 26000,
+            "postsCount": 410,
+            "weeklyTrendPercent": 12.7
+        },
+        {
+            "id": 2,
+            "image": "https://d2mp61vkno2eva.cloudfront.net/_nuxt/img/logo_he.svg",
+            "name": "האגודה למלחמה בסרטן",
+            "admin": "משה בר-חיים",
+            "usersCount": 14700,
+            "postsCount": 560,
+            "weeklyTrendPercent": -1.4
+        },
+        {
+            "id": 3,
+            "image": "https://midot.org.il/wp-content/uploads/2023/12/%D7%99%D7%93%D7%99%D7%93%D7%99-%D7%9E%D7%93%D7%90.png",
+            "name": "עמותת ידידי מד״א",
+            "admin": "רון כהן",
+            "usersCount": 8200,
+            "postsCount": 290,
+            "weeklyTrendPercent": 7.5
+        },
+        {
+            "id": 4,
+            "image": "https://upload.wikimedia.org/wikipedia/he/c/c8/Logolatet.jpg",
+            "name": "לתת",
+            "admin": "דנה לוי",
+            "usersCount": 19000,
+            "postsCount": 340,
+            "weeklyTrendPercent": 8.1
+        },
+        {
+            "id": 5,
+            "image": "https://zulat.org.il/wp-content/uploads/2021/07/FB_IMG_1610781290411.jpeg",
+            "name": "מרכז לשוויון וזכויות אדם (זכּות)",
+            "admin": "אינת אוודיה",
+            "usersCount": 2200,
+            "postsCount": 130,
+            "weeklyTrendPercent": 2.9
+        }
+    ]
+}
