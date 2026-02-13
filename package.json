@@ -17,7 +17,9 @@
     "react-router-dom": "^7.13.0",
     "react-scripts": "5.0.1",
     "recharts": "^3.7.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@mantine/notifications": "^8.3.14",
+    "@mantine/modals": "^8.3.14"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,7 +48,6 @@
   "devDependencies": {
     "@mantine/core": "^8.3.14",
     "@mantine/hooks": "^8.3.14",
-    "@mantine/notifications": "^8.3.14",
     "@tabler/icons-react": "^3.36.1",
     "@types/node": "^25.2.0",
     "@types/react": "^19.2.11",

@@ -64,6 +64,36 @@ class UserService {
      *   });
      * }
      */
+
+    /**
+     * Sends a notification to a specific user.
+     * This is a placeholder infrastructure.
+     */
+    async sendNotification(userId: number, message: string): Promise<void> {
+        console.log(`[UserService] Sending notification to user ${userId}: ${message}`);
+        // Simulate API call
+        return new Promise((resolve) => setTimeout(resolve, 800));
+    }
+
+    /**
+     * Sends a notification to all users.
+     * This is a placeholder infrastructure.
+     */
+    async sendBroadcastNotification(message: string): Promise<void> {
+        console.log(`[UserService] Sending broadcast notification: ${message}`);
+        // Simulate API call
+        return new Promise((resolve) => setTimeout(resolve, 1500));
+    }
+
+    /**
+     * Blocks a user.
+     * This is a placeholder infrastructure.
+     */
+    async blockUser(userId: number): Promise<void> {
+        console.log(`[UserService] Blocking user ${userId}`);
+        // Simulate API call
+        return new Promise((resolve) => setTimeout(resolve, 1000));
+    }
 }
 
 const userService = new UserService();
