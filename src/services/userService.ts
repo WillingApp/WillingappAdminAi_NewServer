@@ -32,7 +32,10 @@ class UserService {
             take: params.take.toString(),
             skip: params.skip.toString(),
             IncludeTotal: 'true',
+            SortField: 'CreationTime',
+            SortOrder: 'Descending',
         };
+        //queryParams['Filter.StatusId'] = '3';
 
         if (params.Filter?.Search?.SearchTerm) {
             queryParams['Filter.Search.SearchTerm'] = params.Filter.Search.SearchTerm;

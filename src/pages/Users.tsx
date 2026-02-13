@@ -74,16 +74,19 @@ const Users: React.FC = () => {
         {
             header: 'Status',
             key: 'statusId',
-            render: (user) => (
-                <Group gap="xs">
-                    <ThemeIcon color={user.statusId === 1 ? 'green' : 'red'} size="sm" variant="light">
-                        {user.statusId === 1 ? <IconCircleCheck size={14} /> : <IconCircleX size={14} />}
-                    </ThemeIcon>
-                    <Badge color={user.statusId === 1 ? 'green' : 'red'} variant="outline" size="sm">
+            render: (user) => {
+                const getStatusColor = (id: number) => {
+                    if (id === 1) return 'green';
+                    if (id === 2) return 'red';
+                    if (id === 3) return 'yellow';
+                    return 'gray';
+                };
+                return (
+                    <Badge color={getStatusColor(user.statusId)} variant="outline" size="sm">
                         {getTranslation('userStatuses', user.statusId)}
                     </Badge>
-                </Group>
-            ),
+                );
+            },
         },
     ], [getTranslation]);
 
