@@ -7,6 +7,7 @@ import { useApi } from '../hooks/useApi';
 import { GenericTable, ColumnDef, useTablePagination } from '../components/GenericTable';
 import { RequestDetailExpansion } from '../components/Requests/RequestDetailExpansion';
 import { useTableSearch } from '../context/TableSearchContext';
+import { useMetadata } from '../context/MetadataContext';
 import './css/Requests.css';
 
 const ROW_HEIGHT = 46;
@@ -54,10 +55,16 @@ const Requests: React.FC = () => {
         });
     }, [execute, take, skip, debouncedSearch]);
 
+    const { getTranslation } = useMetadata();
+
     const columns = useMemo<ColumnDef<Post>[]>(() => [
         { header: 'ID', key: 'id' },
         { header: 'User ID', key: 'userId' },
-        { header: 'Category ID', key: 'categoryId' },
+        {
+            header: 'Category',
+            key: 'categoryId',
+            render: (item) => getTranslation('categories', item.categoryId)
+        },
         {
             header: 'Content',
             key: 'content',
@@ -91,12 +98,12 @@ const Requests: React.FC = () => {
                         {item.statusId === 1 ? <IconCircleCheck size={14} /> : <IconCircleX size={14} />}
                     </ThemeIcon>
                     <Badge color={item.statusId === 1 ? 'green' : 'red'} variant="outline" size="sm">
-                        {item.statusId === 1 ? 'Active' : 'Inactive'}
+                        {getTranslation('postStatuses', item.statusId)}
                     </Badge>
                 </Group>
             ),
         },
-    ], []);
+    ], [getTranslation]);
 
     const totalItems = data?.data?.total ?? data?.total ?? 0;
 

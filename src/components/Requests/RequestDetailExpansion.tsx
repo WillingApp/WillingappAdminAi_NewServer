@@ -3,11 +3,14 @@ import { Text, Box, Paper, Stack, Card, Group, SimpleGrid, Divider, Title } from
 import { IconInfoCircle, IconUser, IconMapPin, IconClock, IconHash, IconCategory } from '@tabler/icons-react';
 import { Post } from '../../services/requestService';
 
+import { useMetadata } from '../../context/MetadataContext';
+
 interface RequestDetailExpansionProps {
     data: Post;
 }
 
 export const RequestDetailExpansion: React.FC<RequestDetailExpansionProps> = ({ data }) => {
+    const { getTranslation } = useMetadata();
     return (
         <Paper p="lg" withBorder bg="var(--mantine-color-gray-0)" radius="md">
             <Stack gap="xl">
@@ -17,7 +20,7 @@ export const RequestDetailExpansion: React.FC<RequestDetailExpansionProps> = ({ 
                         <IconHash size={24} color="var(--mantine-color-blue-filled)" />
                         <Stack gap={0}>
                             <Title order={4}>Request #{data.id}</Title>
-                            <Text size="sm" c="dimmed">Category ID: {data.categoryId}</Text>
+                            <Text size="sm" c="dimmed">{getTranslation('categories', data.categoryId)}</Text>
                         </Stack>
                     </Group>
                 </Group>
@@ -35,8 +38,8 @@ export const RequestDetailExpansion: React.FC<RequestDetailExpansionProps> = ({ 
                             </Group>
                         </Card.Section>
                         <Stack gap="sm" mt="md">
-                            <DetailItem label="Status ID" value={data.statusId} />
-                            <DetailItem label="Urgency Level" value={data.urgencyLevelId} />
+                            <DetailItem label="Status" value={getTranslation('postStatuses', data.statusId)} />
+                            <DetailItem label="Urgency Level" value={getTranslation('urgencyLevels', data.urgencyLevelId)} />
                             <DetailItem
                                 label="Created At"
                                 icon={<IconClock size={14} />}
@@ -62,6 +65,7 @@ export const RequestDetailExpansion: React.FC<RequestDetailExpansionProps> = ({ 
                             <DetailItem label="Contact Name" value={data.contactName || 'Anonymous'} />
                             <DetailItem label="Phone Number" value={data.contactPhone || '-'} />
                             <DetailItem label="User (Sender) ID" value={data.userId} />
+                            <DetailItem label="Contact Type" value={getTranslation('contactTypes', data.contactTypeId)} />
                             <DetailItem label="Group ID" value={data.groupId || '-'} />
                         </Stack>
                     </Card>

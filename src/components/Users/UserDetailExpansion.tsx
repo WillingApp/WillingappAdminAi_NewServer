@@ -1,7 +1,9 @@
 import React from 'react';
-import { Grid, Text, Box, Paper, Stack, Card, Group, Avatar, SimpleGrid, Badge, Divider } from '@mantine/core';
+import { Grid, Text, Box, Paper, Stack, Card, Group, Avatar, SimpleGrid, Badge, Divider, Title } from '@mantine/core';
 import { User } from '../../services/userService';
 import { IconUser, IconSettings, IconChartBar, IconCalendar, IconDeviceFloppy } from '@tabler/icons-react';
+
+import { useMetadata } from '../../context/MetadataContext';
 
 interface UserDetailExpansionProps {
     data: User;
@@ -13,18 +15,12 @@ const LANGUAGE_MAP: Record<number, string> = {
     3: 'Russian',
     4: 'Arabic',
 };
-
-const STATUS_MAP: Record<number, string> = {
-    1: 'Active',
-    2: 'Blocked',
-    3: 'Pending',
-};
-
 const getCountryName = (id: number) => id === 91 ? 'Israel' : `Unknown (${id})`;
 const getLanguageName = (id: number) => LANGUAGE_MAP[id] || `Unknown (${id})`;
-const getStatusName = (id: number) => STATUS_MAP[id] || `Unknown (${id})`;
 
 export const UserDetailExpansion: React.FC<UserDetailExpansionProps> = ({ data }) => {
+    const { getTranslation } = useMetadata();
+
     return (
         <Paper p="lg" withBorder bg="var(--mantine-color-gray-0)" radius="md">
             <Stack gap="xl">
@@ -41,7 +37,7 @@ export const UserDetailExpansion: React.FC<UserDetailExpansionProps> = ({ data }
                             <IconUser size={40} />
                         </Avatar>
                         <Stack gap={0}>
-                            <Text fw={700} size="xl">{data.name || 'Anonymous User'}</Text>
+                            <Title order={4}>{data.name || 'Anonymous User'}</Title>
                             <Text size="sm" c="dimmed">User ID: {data.id}</Text>
                         </Stack>
                     </Group>
@@ -76,7 +72,7 @@ export const UserDetailExpansion: React.FC<UserDetailExpansionProps> = ({ data }
                             </Group>
                         </Card.Section>
                         <Stack gap="sm" mt="md">
-                            <DetailItem label="Account Status" value={getStatusName(data.statusId)} />
+                            <DetailItem label="Account Status" value={getTranslation('userStatuses', data.statusId)} />
                             <DetailItem
                                 label="Created At"
                                 icon={<IconCalendar size={14} />}

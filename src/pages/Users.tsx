@@ -7,6 +7,7 @@ import { useApi } from '../hooks/useApi';
 import { GenericTable, ColumnDef, useTablePagination } from '../components/GenericTable';
 import { UserDetailExpansion } from '../components/Users/UserDetailExpansion';
 import { useTableSearch } from '../context/TableSearchContext';
+import { useMetadata } from '../context/MetadataContext';
 import './css/Users.css';
 
 const ROW_HEIGHT = 46;
@@ -54,6 +55,8 @@ const Users: React.FC = () => {
         });
     }, [execute, take, skip, debouncedSearch]);
 
+    const { getTranslation } = useMetadata();
+
     const columns = useMemo<ColumnDef<User>[]>(() => [
         { header: 'ID', key: 'id' },
         { header: 'Name', key: 'name', render: (user) => user.name || '-' },
@@ -77,12 +80,12 @@ const Users: React.FC = () => {
                         {user.statusId === 1 ? <IconCircleCheck size={14} /> : <IconCircleX size={14} />}
                     </ThemeIcon>
                     <Badge color={user.statusId === 1 ? 'green' : 'red'} variant="outline" size="sm">
-                        {user.statusId === 1 ? 'Active' : 'Inactive'}
+                        {getTranslation('userStatuses', user.statusId)}
                     </Badge>
                 </Group>
             ),
         },
-    ], []);
+    ], [getTranslation]);
 
     const totalItems = data?.data?.total ?? data?.total ?? 0;
 
