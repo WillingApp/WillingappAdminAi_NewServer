@@ -11,6 +11,7 @@ import Groups from './pages/Groups';
 import Feedbacks from './pages/Feedbacks';
 import Login from './pages/Login';
 import { useAuth } from './context/AuthContext';
+import { MetadataProvider } from './context/MetadataContext';
 import { LoadingOverlay, Box } from '@mantine/core';
 
 function App() {
@@ -26,26 +27,28 @@ function App() {
 
   return (
     <BrowserRouter>
-      {isAuthenticated ? (
-        <AppLayout>
+      <MetadataProvider>
+        {isAuthenticated ? (
+          <AppLayout>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/requests" element={<Requests />} />
+              <Route path="/content" element={<Content />} />
+              <Route path="/groups" element={<Groups />} />
+              <Route path="/feedbacks" element={<Feedbacks />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </AppLayout>
+        ) : (
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/requests" element={<Requests />} />
-            <Route path="/content" element={<Content />} />
-            <Route path="/groups" element={<Groups />} />
-            <Route path="/feedbacks" element={<Feedbacks />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
-        </AppLayout>
-      ) : (
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        </Routes>
-      )}
+        )}
+      </MetadataProvider>
     </BrowserRouter>
   );
 }
