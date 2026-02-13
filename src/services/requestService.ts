@@ -76,6 +76,27 @@ class RequestService {
         const query = new URLSearchParams(queryParams).toString();
         return request<RequestsResponse>(`/Post?${query}`);
     }
+
+    /**
+     * Updates the status of a request.
+     * @param id The ID of the request (post)
+     * @param statusId The new status ID
+     */
+    async updateRequestStatus(id: number, statusId: number): Promise<void> {
+        return request<void>(`/Post/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ statusId }),
+        });
+    }
+
+    /**
+     * Deletes a request by changing its status to a "deleted" state.
+     * Assuming statusId 4 represents "Deleted".
+     * @param id The ID of the request
+     */
+    async deleteRequest(id: number): Promise<void> {
+        return this.updateRequestStatus(id, 4);
+    }
 }
 
 const requestService = new RequestService();

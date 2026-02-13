@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
-import { Title, Card, Badge, Group, ThemeIcon, Text } from '@mantine/core';
-import { IconCircleCheck, IconCircleX, IconPhoto, IconExternalLink } from '@tabler/icons-react';
+import { Title, Card, Badge, Group, ThemeIcon, Text, ActionIcon, Tooltip } from '@mantine/core';
+import { IconCircleCheck, IconCircleX, IconPhoto, IconExternalLink, IconTrash, IconLock } from '@tabler/icons-react';
 import { useDebouncedValue } from '@mantine/hooks';
 import requestService, { Post } from '../services/requestService';
 import { useApi } from '../hooks/useApi';
@@ -8,9 +8,11 @@ import { GenericTable, ColumnDef, useTablePagination } from '../components/Gener
 import { RequestDetailExpansion } from '../components/Requests/RequestDetailExpansion';
 import { useTableSearch } from '../context/TableSearchContext';
 import { useMetadata } from '../context/MetadataContext';
+import { modals } from '@mantine/modals';
+import { notifications } from '@mantine/notifications';
 import './css/Requests.css';
 
-const ROW_HEIGHT = 46;
+const ROW_HEIGHT = 48;
 const UI_OFFSET = 350;
 
 const Requests: React.FC = () => {
@@ -112,7 +114,92 @@ const Requests: React.FC = () => {
                 </Group>
             ),
         },
-    ], [getTranslation]);
+        {
+            header: 'Actions',
+            key: 'actions',
+            render: (item) => (
+                <Group gap="xs">
+                    <Tooltip label="Close Request" withArrow>
+                        <ActionIcon
+                            variant="light"
+                            color="blue"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                modals.openConfirmModal({
+                                    title: <Text fw={700}>Close Request</Text>,
+                                    children: (
+                                        <Text size="sm">
+                                            Are you sure you want to close this request?
+                                        </Text>
+                                    ),
+                                    labels: { confirm: 'Close', cancel: 'Cancel' },
+                                    confirmProps: { color: 'blue' },
+                                    onConfirm: async () => {
+                                        try {
+                                            await requestService.updateRequestStatus(item.id, 2); // Assuming 2 is Closed
+                                            notifications.show({
+                                                title: 'Request Closed',
+                                                message: 'The request has been successfully closed.',
+                                                color: 'green',
+                                            });
+                                            execute({ take, skip, Filter: debouncedSearch ? { Search: { SearchTerm: debouncedSearch } } : undefined });
+                                        } catch (err) {
+                                            notifications.show({
+                                                title: 'Error',
+                                                message: 'Failed to close request.',
+                                                color: 'red',
+                                            });
+                                        }
+                                    },
+                                });
+                            }}
+                        >
+                            <IconLock size={18} />
+                        </ActionIcon>
+                    </Tooltip>
+
+                    <Tooltip label="Delete Request" withArrow>
+                        <ActionIcon
+                            variant="light"
+                            color="red"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                modals.openConfirmModal({
+                                    title: <Text fw={700}>Delete Request</Text>,
+                                    children: (
+                                        <Text size="sm">
+                                            Are you sure you want to delete this request? This action cannot be undone.
+                                        </Text>
+                                    ),
+                                    labels: { confirm: 'Delete', cancel: 'Cancel' },
+                                    confirmProps: { color: 'red' },
+                                    onConfirm: async () => {
+                                        try {
+                                            await requestService.deleteRequest(item.id);
+                                            notifications.show({
+                                                title: 'Request Deleted',
+                                                message: 'The request has been successfully deleted.',
+                                                color: 'green',
+                                            });
+                                            execute({ take, skip, Filter: debouncedSearch ? { Search: { SearchTerm: debouncedSearch } } : undefined });
+                                        } catch (err) {
+                                            notifications.show({
+                                                title: 'Error',
+                                                message: 'Failed to delete request.',
+                                                color: 'red',
+                                            });
+                                        }
+                                    },
+                                });
+                            }}
+                        >
+                            <IconTrash size={18} />
+                        </ActionIcon>
+                    </Tooltip>
+                </Group>
+            ),
+        },
+    ], [getTranslation, execute, take, skip, debouncedSearch]);
 
     const totalItems = data?.data?.total ?? data?.total ?? 0;
 
