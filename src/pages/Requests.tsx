@@ -106,9 +106,6 @@ const Requests: React.FC = () => {
             key: 'statusId',
             render: (item) => (
                 <Group gap="xs">
-                    <ThemeIcon color={item.statusId === 1 ? 'green' : 'red'} size="sm" variant="light">
-                        {item.statusId === 1 ? <IconCircleCheck size={14} /> : <IconCircleX size={14} />}
-                    </ThemeIcon>
                     <Badge color={item.statusId === 1 ? 'green' : 'red'} variant="outline" size="sm">
                         {getTranslation('postStatuses', item.statusId)}
                     </Badge>
