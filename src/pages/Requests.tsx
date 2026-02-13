@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
-import { Title, Card, Badge, Group, ThemeIcon } from '@mantine/core';
-import { IconCircleCheck, IconCircleX } from '@tabler/icons-react';
+import { Title, Card, Badge, Group, ThemeIcon, Text } from '@mantine/core';
+import { IconCircleCheck, IconCircleX, IconPhoto, IconExternalLink } from '@tabler/icons-react';
 import { useDebouncedValue } from '@mantine/hooks';
 import requestService, { Post } from '../services/requestService';
 import { useApi } from '../hooks/useApi';
@@ -59,6 +59,18 @@ const Requests: React.FC = () => {
 
     const columns = useMemo<ColumnDef<Post>[]>(() => [
         { header: 'ID', key: 'id' },
+        {
+            header: 'Images',
+            key: 'images',
+            render: (item) => (
+                item.images && item.images.length > 0 ? (
+                    <Group gap={4}>
+                        <IconPhoto size={16} color="var(--mantine-color-blue-filled)" />
+                        <Text size="xs" fw={700} c="blue">{item.images.length}</Text>
+                    </Group>
+                ) : '-'
+            )
+        },
         { header: 'User ID', key: 'userId' },
         {
             header: 'Category',

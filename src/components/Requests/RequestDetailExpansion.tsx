@@ -1,6 +1,6 @@
-import React from 'react';
-import { Text, Box, Paper, Stack, Card, Group, SimpleGrid, Divider, Title } from '@mantine/core';
-import { IconInfoCircle, IconUser, IconMapPin, IconClock, IconHash, IconCategory } from '@tabler/icons-react';
+import React, { useState } from 'react';
+import { Text, Box, Paper, Stack, Card, Group, SimpleGrid, Divider, Title, ActionIcon, Image, Modal, Badge, Center, Grid } from '@mantine/core';
+import { IconInfoCircle, IconUser, IconMapPin, IconClock, IconHash, IconChevronLeft, IconChevronRight, IconMaximize } from '@tabler/icons-react';
 import { Post } from '../../services/requestService';
 
 import { useMetadata } from '../../context/MetadataContext';
@@ -11,6 +11,27 @@ interface RequestDetailExpansionProps {
 
 export const RequestDetailExpansion: React.FC<RequestDetailExpansionProps> = ({ data }) => {
     const { getTranslation } = useMetadata();
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [opened, setOpened] = useState(false);
+
+    const images = data.images || [];
+    const hasImages = images.length > 0;
+
+    const nextImage = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    };
+
+    const prevImage = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+    };
+
+    const getImageUrl = (img: any) => {
+        if (!img) return '';
+        return typeof img === 'string' ? img : img?.url || img?.path || '';
+    };
+
     return (
         <Paper p="lg" withBorder bg="var(--mantine-color-gray-0)" radius="md">
             <Stack gap="xl">
@@ -87,16 +108,111 @@ export const RequestDetailExpansion: React.FC<RequestDetailExpansionProps> = ({ 
                     </Card>
                 </SimpleGrid>
 
-                {/* Content Section */}
-                <Card withBorder padding="md" radius="md">
-                    <Text size="xs" c="dimmed" fw={600} tt="uppercase" mb="xs">Request Content</Text>
-                    <Box p="md" bg="var(--mantine-color-gray-1)" style={{ borderRadius: 'var(--mantine-radius-sm)' }}>
-                        <Text size="sm" style={{ whiteSpace: 'pre-wrap' }}>
-                            {data.content || 'No content provided.'}
-                        </Text>
-                    </Box>
-                </Card>
+                {/* Bottom Section: Content & Images */}
+                <Grid gutter="lg">
+                    {/* Content Card */}
+                    <Grid.Col span={{ base: 12, md: hasImages ? 8 : 12 }}>
+                        <Card withBorder padding="md" radius="md" h="100%">
+                            <Text size="xs" c="dimmed" fw={600} tt="uppercase" mb="xs">Request Content</Text>
+                            <Box p="md" bg="var(--mantine-color-gray-1)" style={{ borderRadius: 'var(--mantine-radius-sm)', flex: 1 }}>
+                                <Text size="sm" style={{ whiteSpace: 'pre-wrap' }}>
+                                    {data.content || 'No content provided.'}
+                                </Text>
+                            </Box>
+                        </Card>
+                    </Grid.Col>
+
+                    {/* Image Card */}
+                    {hasImages && (
+                        <Grid.Col span={{ base: 12, md: 4 }}>
+                            <Card withBorder padding="md" radius="md" h="100%" style={{ display: 'flex', flexDirection: 'column' }}>
+                                <Group justify="space-between" mb="xs">
+                                    <Text size="xs" c="dimmed" fw={600} tt="uppercase">Images ({images.length})</Text>
+                                    {images.length > 1 && (
+                                        <Text size="xs" fw={700} c="blue">{currentImageIndex + 1} / {images.length}</Text>
+                                    )}
+                                </Group>
+
+                                <Box pos="relative" style={{ flex: 1, minHeight: 200, cursor: 'zoom-in' }} onClick={() => setOpened(true)}>
+                                    <Image
+                                        src={getImageUrl(images[currentImageIndex])}
+                                        height={200}
+                                        fit="cover"
+                                        radius="sm"
+                                        fallbackSrc="https://placehold.co/600x400?text=No+Image"
+                                    />
+
+                                    {images.length > 1 && (
+                                        <>
+                                            <ActionIcon
+                                                pos="absolute"
+                                                left={10}
+                                                top="50%"
+                                                style={{ transform: 'translateY(-50%)', zIndex: 10 }}
+                                                variant="filled"
+                                                onClick={prevImage}
+                                                radius="xl"
+                                                size="sm"
+                                            >
+                                                <IconChevronLeft size={14} />
+                                            </ActionIcon>
+                                            <ActionIcon
+                                                pos="absolute"
+                                                right={10}
+                                                top="50%"
+                                                style={{ transform: 'translateY(-50%)', zIndex: 10 }}
+                                                variant="filled"
+                                                onClick={nextImage}
+                                                radius="xl"
+                                                size="sm"
+                                            >
+                                                <IconChevronRight size={14} />
+                                            </ActionIcon>
+                                        </>
+                                    )}
+
+                                    <Box pos="absolute" bottom={10} right={10}>
+                                        <Badge size="xs" variant="filled" color="dark.4" leftSection={<IconMaximize size={10} />}>
+                                            Zoom
+                                        </Badge>
+                                    </Box>
+                                </Box>
+                            </Card>
+                        </Grid.Col>
+                    )}
+                </Grid>
             </Stack>
+
+            {/* Zoom Modal */}
+            <Modal opened={opened} onClose={() => setOpened(false)} size="lg" centered padding={0} withCloseButton={false}>
+                <Box pos="relative" bg="black" p="xs">
+                    <Image
+                        src={getImageUrl(images[currentImageIndex])}
+                        fit="contain"
+                        mah="80vh"
+                    />
+                    <ActionIcon
+                        pos="absolute"
+                        top={10}
+                        right={10}
+                        variant="filled"
+                        color="dark"
+                        onClick={() => setOpened(false)}
+                        radius="xl"
+                        style={{ zIndex: 100 }}
+                    >
+                        <Text style={{ transform: 'rotate(45deg)', fontSize: 20, lineHeight: 1 }}>+</Text>
+                    </ActionIcon>
+
+                    {images.length > 1 && (
+                        <Group pos="absolute" bottom={20} left="50%" style={{ transform: 'translateX(-50%)', zIndex: 100 }} gap="xs">
+                            <ActionIcon variant="filled" color="blue" onClick={prevImage} radius="xl" size="lg"><IconChevronLeft size={20} /></ActionIcon>
+                            <Badge color="dark" size="lg" variant="filled" style={{ border: '1px solid rgba(255,255,255,0.2)' }}>{currentImageIndex + 1} / {images.length}</Badge>
+                            <ActionIcon variant="filled" color="blue" onClick={nextImage} radius="xl" size="lg"><IconChevronRight size={20} /></ActionIcon>
+                        </Group>
+                    )}
+                </Box>
+            </Modal>
         </Paper>
     );
 };
