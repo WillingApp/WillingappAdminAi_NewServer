@@ -6,6 +6,8 @@
 
 .Groups-tableContainer {
     flex: 1;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
     margin-top: 10px;
 }

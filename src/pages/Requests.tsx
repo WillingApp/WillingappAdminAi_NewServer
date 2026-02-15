@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Title, Card, Badge, Group, ThemeIcon, Text, ActionIcon, Tooltip } from '@mantine/core';
 import { IconCircleCheck, IconCircleX, IconPhoto, IconExternalLink, IconTrash, IconLock } from '@tabler/icons-react';
 import { useDebouncedValue } from '@mantine/hooks';
@@ -12,9 +12,8 @@ import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
 import './css/Requests.css';
 
-const ROW_HEIGHT = 48;
+const ROW_HEIGHT = 52;
 const UI_OFFSET = 350;
-
 const Requests: React.FC = () => {
     const { page, setPage, take, skip } = useTablePagination(ROW_HEIGHT, UI_OFFSET);
     const searchContext = useTableSearch();
@@ -204,7 +203,15 @@ const Requests: React.FC = () => {
     const totalItems = data?.data?.total ?? data?.total ?? 0;
 
     return (
-        <Card shadow="sm" padding="lg" radius="md" withBorder className="Requests-card">
+        <Card
+            shadow="sm"
+            padding="lg"
+            radius="md"
+            withBorder
+            className="Requests-card"
+            flex={1}
+            style={{ minHeight: 'calc(100vh - 150px)' }}
+        >
             <Group justify="space-between" mb="md">
                 <Title order={2}>Requests Management</Title>
                 <Badge size="lg" variant="filled">{totalItems} Total Requests</Badge>

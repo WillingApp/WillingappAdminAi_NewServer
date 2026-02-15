@@ -12,9 +12,8 @@ import { useMetadata } from '../context/MetadataContext';
 import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
 import './css/Users.css';
-const ROW_HEIGHT = 48;
+const ROW_HEIGHT = 52;
 const UI_OFFSET = 350;
-
 const Users: React.FC = () => {
     const { page, setPage, take, skip } = useTablePagination(ROW_HEIGHT, UI_OFFSET);
     const searchContext = useTableSearch();
@@ -157,7 +156,15 @@ const Users: React.FC = () => {
     const totalItems = data?.data?.total ?? data?.total ?? 0;
 
     return (
-        <Card shadow="sm" padding="lg" radius="md" withBorder className="Users-card">
+        <Card
+            shadow="sm"
+            padding="lg"
+            radius="md"
+            withBorder
+            className="Users-card"
+            flex={1}
+            style={{ minHeight: 'calc(100vh - 150px)' }}
+        >
             <Group justify="space-between" mb="md">
                 <Title order={2}>Users Management</Title>
                 <Group>

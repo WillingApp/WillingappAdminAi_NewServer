@@ -3,6 +3,7 @@ import mockData from '../data/mockDb.json';
 export interface User {
     name: string;
     email: string;
+    phone?: string;
     token: string;
 }
 

@@ -1,0 +1,37 @@
+{
+    "admins": [
+        {
+            "id": "1",
+            "firstName": "Shachar",
+            "lastName": "Ganot",
+            "email": "shachar@gmail.com",
+            "phone": "+972502574923",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        },
+        {
+            "id": "2",
+            "firstName": "Daniel",
+            "lastName": "Sharon",
+            "email": "dani5734@gmail.com",
+            "phone": "+972502036831",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        },
+        {
+            "id": "3",
+            "firstName": "Dudi",
+            "lastName": "Fruman",
+            "email": "dudifru@gmail.com",
+            "phone": "+972523507560",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        }
+    ]
+}

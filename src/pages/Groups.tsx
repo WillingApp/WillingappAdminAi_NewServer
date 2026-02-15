@@ -11,7 +11,7 @@ import { CreateGroupModal } from '../components/Groups/CreateGroupModal';
 import { useTableSearch } from '../context/TableSearchContext';
 import './css/Groups.css';
 
-const ROW_HEIGHT = 46;
+const ROW_HEIGHT = 52;
 const UI_OFFSET = 350;
 
 const Groups: React.FC = () => {
@@ -156,7 +156,15 @@ const Groups: React.FC = () => {
     const totalItems = data?.data?.total ?? data?.total ?? 0;
 
     return (
-        <Card shadow="sm" padding="lg" radius="md" withBorder className="Groups-card">
+        <Card
+            shadow="sm"
+            padding="lg"
+            radius="md"
+            withBorder
+            className="Groups-card"
+            flex={1}
+            style={{ minHeight: 'calc(100vh - 150px)' }}
+        >
             <Group justify="space-between" mb="md">
                 <Group>
                     <Title order={2}>Groups Management</Title>
