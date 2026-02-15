@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { ApiResult } from '../services/apiTypes';
 
 /**
@@ -14,16 +14,24 @@ export function useApi<T, Args extends any[]>(
         loading: false,
     });
 
+    const lastRequestId = useRef(0);
+
     const execute = useCallback(
         async (...args: Args) => {
-            setState({ data: null, error: null, loading: true });
+            const requestId = ++lastRequestId.current;
+            setState((prev) => ({ ...prev, loading: true }));
+
             try {
                 const result = await apiFunction(...args);
-                setState({ data: result, error: null, loading: false });
+                if (requestId === lastRequestId.current) {
+                    setState({ data: result, error: null, loading: false });
+                }
                 return result;
             } catch (err: any) {
-                const errorMessage = err.message || 'Something went wrong';
-                setState({ data: null, error: errorMessage, loading: false });
+                if (requestId === lastRequestId.current) {
+                    const errorMessage = err.message || 'Something went wrong';
+                    setState({ data: null, error: errorMessage, loading: false });
+                }
                 throw err;
             }
         },

@@ -13,9 +13,9 @@ import { notifications } from '@mantine/notifications';
 import './css/Requests.css';
 
 const ROW_HEIGHT = 52;
-const UI_OFFSET = 350;
+const INTERNAL_OFFSET = 120; // Header inside card + Pagination + Spacing
 const Requests: React.FC = () => {
-    const { page, setPage, take, skip } = useTablePagination(ROW_HEIGHT, UI_OFFSET);
+    const { page, setPage, take, skip, containerRef, ready } = useTablePagination(ROW_HEIGHT, INTERNAL_OFFSET);
     const searchContext = useTableSearch();
 
     // Get search term from context or default to empty string
@@ -45,6 +45,8 @@ const Requests: React.FC = () => {
     }, [debouncedSearch, setPage]);
 
     useEffect(() => {
+        if (!ready) return;
+
         execute({
             take,
             skip,
@@ -54,7 +56,7 @@ const Requests: React.FC = () => {
                 }
             } : undefined
         });
-    }, [execute, take, skip, debouncedSearch]);
+    }, [execute, take, skip, debouncedSearch, ready]);
 
     const { getTranslation } = useMetadata();
 
@@ -216,7 +218,7 @@ const Requests: React.FC = () => {
                 <Badge size="lg" variant="filled">{totalItems} Total Requests</Badge>
             </Group>
 
-            <div className="Requests-tableContainer">
+            <div className="Requests-tableContainer" ref={containerRef}>
                 <GenericTable<Post>
                     data={data?.data?.items || []}
                     total={totalItems}

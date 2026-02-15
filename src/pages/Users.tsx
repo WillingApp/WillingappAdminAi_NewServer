@@ -13,9 +13,9 @@ import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
 import './css/Users.css';
 const ROW_HEIGHT = 52;
-const UI_OFFSET = 350;
+const INTERNAL_OFFSET = 120; // Header inside card + Pagination + Spacing
 const Users: React.FC = () => {
-    const { page, setPage, take, skip } = useTablePagination(ROW_HEIGHT, UI_OFFSET);
+    const { page, setPage, take, skip, containerRef, ready } = useTablePagination(ROW_HEIGHT, INTERNAL_OFFSET);
     const searchContext = useTableSearch();
     const [opened, { open, close }] = useDisclosure(false);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -47,6 +47,8 @@ const Users: React.FC = () => {
     }, [debouncedSearch, setPage]);
 
     useEffect(() => {
+        if (!ready) return;
+
         execute({
             take,
             skip,
@@ -56,7 +58,7 @@ const Users: React.FC = () => {
                 }
             } : undefined
         });
-    }, [execute, take, skip, debouncedSearch]);
+    }, [execute, take, skip, debouncedSearch, ready]);
 
     const { getTranslation } = useMetadata();
 
@@ -182,7 +184,7 @@ const Users: React.FC = () => {
                 </Group>
             </Group>
 
-            <div className="Users-tableContainer">
+            <div className="Users-tableContainer" ref={containerRef}>
                 <GenericTable<User>
                     data={data?.data?.items || []}
                     total={totalItems}
