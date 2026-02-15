@@ -28,6 +28,7 @@ import { fetchDashboardData, DashboardData, SummaryItem, CategoryData } from '..
 import '@mantine/charts/styles.css';
 import '@mantine/dates/styles.css';
 import TopGroupsTable from '../components/TopGroupsTable';
+import './css/Dashboard.css';
 
 const Dashboard: React.FC = () => {
     const theme = useMantineTheme();
@@ -88,7 +89,7 @@ const Dashboard: React.FC = () => {
 
     if (loading) {
         return (
-            <Center style={{ height: '100%' }}>
+            <Center className="Dashboard-loaderCenter">
                 <Loader size="lg" />
             </Center>
         );
@@ -116,7 +117,7 @@ const Dashboard: React.FC = () => {
                                 pointer
                                 leftSection={<IconCalendar size="1.1rem" stroke={1.5} />}
                                 onClick={() => { }}
-                                style={{ width: 330 }}
+                                className="Dashboard-dateInput"
                             >
                                 {dateRange[0] ? (
                                     <>
@@ -129,14 +130,14 @@ const Dashboard: React.FC = () => {
                             </InputBase>
                         </Popover.Target>
                         <Popover.Dropdown p={0}>
-                            <div style={{ padding: 'xs' }}>
+                            <div className="Dashboard-datePickerContainer">
                                 <DatePicker
                                     type="range"
                                     value={dateRange}
                                     onChange={(value) => setDateRange(value as [Date | null, Date | null])}
                                 />
                             </div>
-                            <Stack gap={5} p="xs" style={{ borderTop: `1px solid ${theme.colors.gray[2]}` }}>
+                            <Stack gap={5} p="xs" className="Dashboard-presetContainer">
                                 <Text size="xs" fw={700} c="dimmed" tt="uppercase" px={5}>
                                     Quick Select
                                 </Text>
@@ -219,13 +220,10 @@ const Dashboard: React.FC = () => {
                             <Stack gap="xs">
                                 {data.categoryDistribution.map((item: CategoryData) => (
                                     <Group key={item.label} gap="xs" wrap="nowrap">
-                                        <div style={{
-                                            width: 10,
-                                            height: 10,
-                                            backgroundColor: item.color,
-                                            borderRadius: '50%',
-                                            flexShrink: 0
-                                        }} />
+                                        <div
+                                            className="Dashboard-categoryDot"
+                                            style={{ backgroundColor: item.color }}
+                                        />
                                         <Text size="sm" c="dimmed" truncate>
                                             {item.label}: {item.value}%
                                         </Text>
@@ -283,7 +281,7 @@ const KpiCard: React.FC<KpiCardProps> = ({ title, subtitle, value, trend, isPosi
                         {title}
                     </Text>
                     {subtitle && (
-                        <Text size="xs" c="dimmed" fw={500} style={{ fontStyle: 'italic' }}>
+                        <Text size="xs" c="dimmed" fw={500} className="Dashboard-kpiSubtitle">
                             {subtitle}
                         </Text>
                     )}
@@ -293,7 +291,7 @@ const KpiCard: React.FC<KpiCardProps> = ({ title, subtitle, value, trend, isPosi
                     variant="light"
                     size={38}
                     radius="md"
-                    style={{ flexShrink: 0 }}
+                    className="Dashboard-kpiIcon"
                 >
                     {isPositive ? (
                         <IconArrowUpRight style={{ width: rem(24), height: rem(24) }} stroke={1.5} />

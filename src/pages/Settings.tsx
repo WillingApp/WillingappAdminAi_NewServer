@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import adminService, { AdminUser } from '../services/adminService';
 import { GenericTable, ColumnDef } from '../components/GenericTable';
 import { notifications } from '@mantine/notifications';
+import './css/Settings.css';
 
 const Settings: React.FC = () => {
     const { user: authUser } = useAuth();
@@ -164,23 +165,20 @@ const Settings: React.FC = () => {
                 radius="md"
                 withBorder
                 flex={1}
-                style={{
-                    minHeight: 'calc(100vh - 150px)'
-                }}
+                className="Settings-card"
             >
-                <Title order={2} style={{ marginBottom: '1rem' }}>Settings</Title>
+                <Title order={2} className="Settings-title">Settings</Title>
                 <Tabs
                     value={activeTab}
                     onChange={setActiveTab}
                     flex={1}
+                    className="Settings-tabs"
                     styles={{
-                        root: { display: 'flex', flexDirection: 'column', flex: 1 },
                         panel: {
                             flex: 1,
                             display: 'flex',
                             flexDirection: 'column',
                             minHeight: 0,
-                            paddingTop: 'var(--mantine-spacing-md)'
                         }
                     }}
                 >
@@ -202,8 +200,8 @@ const Settings: React.FC = () => {
                         />
                     </Tabs.Panel>
 
-                    <Tabs.Panel value="profile" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                        <Stack gap="md" maw={500}>
+                    <Tabs.Panel value="profile" className="Settings-tabsPanel">
+                        <Stack gap="md" className="Settings-formStack">
                             <Title order={4}>Update Personal Details</Title>
                             <TextInput
                                 label="Full Name"
@@ -232,12 +230,12 @@ const Settings: React.FC = () => {
                                 value={profilePassword}
                                 onChange={(e) => setProfilePassword(e.currentTarget.value)}
                             />
-                            <Button onClick={handleUpdateProfile} loading={loading} maw={200}>Save Changes</Button>
+                            <Button onClick={handleUpdateProfile} loading={loading} className="Settings-saveButton">Save Changes</Button>
                         </Stack>
                     </Tabs.Panel>
 
-                    <Tabs.Panel value="create" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                        <Stack gap="md" maw={500}>
+                    <Tabs.Panel value="create" className="Settings-tabsPanel">
+                        <Stack gap="md" className="Settings-formStack">
                             <Title order={4}>Create New Administrator</Title>
                             <Group grow>
                                 <TextInput
@@ -278,7 +276,7 @@ const Settings: React.FC = () => {
                                 value={newAdmin.password}
                                 onChange={(e) => setNewAdmin({ ...newAdmin, password: e.currentTarget.value })}
                             />
-                            <Button onClick={handleCreateAdmin} loading={loading} maw={200}>Create Admin</Button>
+                            <Button onClick={handleCreateAdmin} loading={loading} className="Settings-saveButton">Create Admin</Button>
                         </Stack>
                     </Tabs.Panel>
                 </Tabs>

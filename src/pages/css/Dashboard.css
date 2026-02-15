@@ -1,0 +1,31 @@
+/* Dashboard.css */
+.Dashboard-loaderCenter {
+    height: 100%;
+}
+
+.Dashboard-dateInput {
+    width: 330px;
+}
+
+.Dashboard-datePickerContainer {
+    padding: var(--mantine-spacing-xs);
+}
+
+.Dashboard-presetContainer {
+    border-top: 1px solid var(--mantine-color-gray-2);
+}
+
+.Dashboard-categoryDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.Dashboard-kpiIcon {
+    flex-shrink: 0;
+}
+
+.Dashboard-kpiSubtitle {
+    font-style: italic;
+}

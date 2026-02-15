@@ -82,7 +82,7 @@ const Requests: React.FC = () => {
             header: 'Content',
             key: 'content',
             render: (item) => (
-                <div style={{ maxWidth: 300, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <div className="Requests-contentCell">
                     {item.content || '-'}
                 </div>
             )
@@ -210,7 +210,6 @@ const Requests: React.FC = () => {
             withBorder
             className="Requests-card"
             flex={1}
-            style={{ minHeight: 'calc(100vh - 150px)' }}
         >
             <Group justify="space-between" mb="md">
                 <Title order={2}>Requests Management</Title>

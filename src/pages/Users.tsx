@@ -163,7 +163,6 @@ const Users: React.FC = () => {
             withBorder
             className="Users-card"
             flex={1}
-            style={{ minHeight: 'calc(100vh - 150px)' }}
         >
             <Group justify="space-between" mb="md">
                 <Title order={2}>Users Management</Title>

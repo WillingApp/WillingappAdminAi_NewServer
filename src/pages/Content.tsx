@@ -3,6 +3,7 @@ import { Title, Stack, Paper, Grid, Card } from '@mantine/core';
 import LanguageSelector from '../components/content/LanguageSelector';
 import TermsOfUseSection from '../components/content/TermsOfUseSection';
 import FAQSection from '../components/content/FAQSection';
+import './css/Content.css';
 
 const Content: React.FC = () => {
     const [languageId, setLanguageId] = useState<number>(1); // Default to Hebrew
@@ -11,14 +12,14 @@ const Content: React.FC = () => {
         <Stack gap="xl" py="xs">
             {/* Top Section: Link Management + Language Selection */}
             <Grid gutter="xl" align="stretch">
-                <Grid.Col span={{ base: 12, md: 8 }}>
-                    <Card p="md" radius="md" withBorder shadow="sm" h="100%">
+                <Grid.Col span={{ base: 12, md: 6 }}>
+                    <Card p="md" radius="md" withBorder shadow="sm" className="Content-card">
                         <TermsOfUseSection />
                     </Card>
                 </Grid.Col>
 
-                <Grid.Col span={{ base: 12, md: 4 }}>
-                    <Card p="md" radius="md" withBorder shadow="sm" h="100%">
+                <Grid.Col span={{ base: 12, md: 6 }}>
+                    <Card p="md" radius="md" withBorder shadow="sm" className="Content-card">
                         <Title order={4} mb="md">Select Language</Title>
                         <LanguageSelector value={languageId} onChange={setLanguageId} />
                     </Card>

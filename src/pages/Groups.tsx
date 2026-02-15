@@ -90,7 +90,7 @@ const Groups: React.FC = () => {
                         size={40}
                         radius="xl"
                         bg="gray.1"
-                        imageProps={{ style: { objectFit: 'contain' } }}
+                        imageProps={{ className: 'Groups-avatarImage' }}
                     />
                     <Text fz="sm" fw={500}>{group.name}</Text>
                 </Group>
@@ -163,7 +163,6 @@ const Groups: React.FC = () => {
             withBorder
             className="Groups-card"
             flex={1}
-            style={{ minHeight: 'calc(100vh - 150px)' }}
         >
             <Group justify="space-between" mb="md">
                 <Group>

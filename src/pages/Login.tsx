@@ -13,6 +13,7 @@ import {
 } from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons-react';
 import { useAuth } from '../context/AuthContext';
+import './css/Login.css';
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -47,17 +48,17 @@ const LoginPage: React.FC = () => {
     };
 
     return (
-        <Container size={420} my={80}>
-            <Title ta="center" fw={900}>
+        <Container size={420} className="Login-container">
+            <Title className="Login-title">
                 WillingApp Admin
             </Title>
-            <Text c="dimmed" size="sm" ta="center" mt={5}>
+            <Text c="dimmed" size="sm" className="Login-text">
                 Please sign in to access your dashboard
             </Text>
 
-            <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+            <Paper withBorder shadow="md" p={30} radius="md" className="Login-paper">
                 {error && (
-                    <Alert icon={<IconAlertCircle size="1rem" />} title="Login Failed" color="red" mb="md">
+                    <Alert icon={<IconAlertCircle className="Login-alertIcon" />} title="Login Failed" color="red" mb="md">
                         {error}
                     </Alert>
                 )}
