@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Title, Card, Badge, Group, ThemeIcon, ActionIcon, Tooltip, Button, Text } from '@mantine/core';
-import { IconCircleCheck, IconCircleX, IconSend, IconUserOff } from '@tabler/icons-react';
+import { Title, Card, Badge, Group, ActionIcon, Tooltip, Button, Text } from '@mantine/core';
+import { IconSend, IconUserOff } from '@tabler/icons-react';
 import { useDebouncedValue, useDisclosure } from '@mantine/hooks';
 import userService, { User } from '../services/userService';
 import { useApi } from '../hooks/useApi';
@@ -24,7 +24,7 @@ const Users: React.FC = () => {
     const searchTerm = searchContext?.searchTerm || '';
     const [debouncedSearch] = useDebouncedValue(searchTerm, 500);
 
-    const { data, loading, error, execute } = useApi(userService.getUsers);
+    const { data, loading, execute } = useApi(userService.getUsers);
 
     // Synchronize page-level settings with the global search in header
     useEffect(() => {

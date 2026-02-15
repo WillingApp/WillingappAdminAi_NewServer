@@ -1,4 +1,4 @@
-import dashboardDataRaw from '../data/dashboardData.json';
+import dashboardDataRaw from '../data/DashboardDataMock.json';
 
 export interface SummaryItem {
     current: number;

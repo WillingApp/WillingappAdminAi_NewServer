@@ -1,6 +1,6 @@
 import { request, post, del } from './apiClient';
 import { PaginationParams, ApiResponse, Group, CreateGroupPayload, AddUserPayload } from './apiTypes';
-import topGroupsData from '../data/TopGroups.json';
+import topGroupsData from '../data/TopGroupsMock.json';
 
 export interface TopGroup {
     id: number;

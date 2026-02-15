@@ -1,4 +1,4 @@
-import mockData from '../data/mockDb.json';
+import mockData from '../data/ConectedUserMock.json';
 
 export interface User {
     name: string;

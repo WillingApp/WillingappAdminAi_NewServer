@@ -1,4 +1,4 @@
-import adminData from '../data/AdminUsers.json';
+import adminData from '../data/AdminUsersMock.json';
 
 export interface AdminUser {
     id: string;

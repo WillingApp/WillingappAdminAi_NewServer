@@ -1,0 +1,1272 @@
+[
+    {
+        "report": {
+            "id": 1,
+            "creationTime": "2026-02-10T09:10:00",
+            "updateTime": "2026-02-10T09:10:00",
+            "status": 1,
+            "description": "נראה כמו פישינג",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 101,
+            "name": "דניאל",
+            "phone": "972501111111",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-01T08:00:00",
+            "updateTime": "2025-11-01T08:00:00"
+        },
+        "reportedUser": {
+            "id": 201,
+            "name": "שחר",
+            "phone": "972502222222",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-01T08:00:00",
+            "updateTime": "2025-10-01T08:00:00"
+        },
+        "request": {
+            "id": 1001,
+            "statusId": 1,
+            "urgencyLevelId": 1,
+            "categoryId": 5,
+            "groupId": null,
+            "locationId": 11,
+            "userId": 202,
+            "contactTypeId": 1,
+            "contactName": "רון",
+            "contactPhone": null,
+            "content": "אני רוצה למסור מכונית במתנה למי שצריך.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-21T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-09T13:00:00",
+            "updateTime": "2026-02-09T13:00:00",
+            "distanceFromLocation": 8000,
+            "place": {
+                "city": {
+                    "id": 2,
+                    "countryId": 91,
+                    "externalId": "x2",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "חיפה"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 11,
+                    "latitude": 32.79,
+                    "longitude": 34.99,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "חיפה"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {}
+    },
+    {
+        "report": {
+            "id": 2,
+            "creationTime": "2026-02-11T10:20:00",
+            "updateTime": "2026-02-11T10:20:00",
+            "status": 2,
+            "description": "פוסט כפול",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 102,
+            "name": "מיכל",
+            "phone": "972503333333",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-02T09:00:00",
+            "updateTime": "2025-11-02T09:00:00"
+        },
+        "reportedUser": {
+            "id": 202,
+            "name": "אורי",
+            "phone": "972504444444",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-02T08:00:00",
+            "updateTime": "2025-10-02T08:00:00"
+        },
+        "request": {
+            "id": 1002,
+            "statusId": 1,
+            "urgencyLevelId": 2,
+            "categoryId": 3,
+            "groupId": null,
+            "locationId": 12,
+            "userId": 203,
+            "contactTypeId": 1,
+            "contactName": "יעל",
+            "contactPhone": null,
+            "content": "יש קשיש בן 70 שצריך עזרה במעבר דירה, צריך שמישהו ישלם על ההובלה.",
+            "duration": 7200,
+            "distance": null,
+            "expirationTime": "2026-02-22T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-10T14:00:00",
+            "updateTime": "2026-02-10T14:00:00",
+            "distanceFromLocation": 5000,
+            "place": {
+                "city": {
+                    "id": 3,
+                    "countryId": 91,
+                    "externalId": "x3",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "תל אביב"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 12,
+                    "latitude": 32.08,
+                    "longitude": 34.78,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "תל אביב"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {
+            "id": "2",
+            "firstName": "Shachar",
+            "lastName": "Ganot",
+            "email": "shachar@gmail.com",
+            "phone": "+972502574923",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        }
+    },
+    {
+        "report": {
+            "id": 3,
+            "creationTime": "2026-02-12T11:15:00",
+            "updateTime": "2026-02-12T11:15:00",
+            "status": 3,
+            "description": "נראה מזוייף",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 103,
+            "name": "אביתר",
+            "phone": "972505555555",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-03T08:00:00",
+            "updateTime": "2025-11-03T08:00:00"
+        },
+        "reportedUser": {
+            "id": 203,
+            "name": "שרה",
+            "phone": "972506666666",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-03T08:00:00",
+            "updateTime": "2025-10-03T08:00:00"
+        },
+        "request": {
+            "id": 1003,
+            "statusId": 1,
+            "urgencyLevelId": 1,
+            "categoryId": 2,
+            "groupId": null,
+            "locationId": 13,
+            "userId": 204,
+            "contactTypeId": 1,
+            "contactName": "איתן",
+            "contactPhone": null,
+            "content": "מחפש מישהו שיעזור לילד עם שיעורי בית במתמטיקה בסופי שבוע.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-25T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-11T10:00:00",
+            "updateTime": "2026-02-11T10:00:00",
+            "distanceFromLocation": 3000,
+            "place": {
+                "city": {
+                    "id": 4,
+                    "countryId": 91,
+                    "externalId": "x4",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "ירושלים"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 13,
+                    "latitude": 31.78,
+                    "longitude": 35.22,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "ירושלים"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {
+            "id": "3",
+            "firstName": "Shachar",
+            "lastName": "Ganot",
+            "email": "shachar@gmail.com",
+            "phone": "+972502574923",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        }
+    },
+    {
+        "report": {
+            "id": 4,
+            "creationTime": "2026-02-13T09:00:00",
+            "updateTime": "2026-02-13T09:00:00",
+            "status": 1,
+            "description": "תוכן פוגעני",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 104,
+            "name": "נועה",
+            "phone": "972507777777",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-04T08:00:00",
+            "updateTime": "2025-11-04T08:00:00"
+        },
+        "reportedUser": {
+            "id": 204,
+            "name": "חיים",
+            "phone": "972508888888",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-04T08:00:00",
+            "updateTime": "2025-10-04T08:00:00"
+        },
+        "request": {
+            "id": 1004,
+            "statusId": 1,
+            "urgencyLevelId": 2,
+            "categoryId": 1,
+            "groupId": null,
+            "locationId": 14,
+            "userId": 205,
+            "contactTypeId": 1,
+            "contactName": "טל",
+            "contactPhone": null,
+            "content": "רוצה למסור בגדים וחפצים לילדים במשפחות מעוטות יכולת.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-26T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-12T11:00:00",
+            "updateTime": "2026-02-12T11:00:00",
+            "distanceFromLocation": 2000,
+            "place": {
+                "city": {
+                    "id": 5,
+                    "countryId": 91,
+                    "externalId": "x5",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "נתניה"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 14,
+                    "latitude": 32.32,
+                    "longitude": 34.86,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "נתניה"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {}
+    },
+    {
+        "report": {
+            "id": 5,
+            "creationTime": "2026-02-14T08:30:00",
+            "updateTime": "2026-02-14T08:30:00",
+            "status": 2,
+            "description": "פוסט פתוח",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 105,
+            "name": "גיא",
+            "phone": "972509999999",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-05T08:00:00",
+            "updateTime": "2025-11-05T08:00:00"
+        },
+        "reportedUser": {
+            "id": 205,
+            "name": "ליאור",
+            "phone": "972510000000",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-05T08:00:00",
+            "updateTime": "2025-10-05T08:00:00"
+        },
+        "request": {
+            "id": 1005,
+            "statusId": 1,
+            "urgencyLevelId": 1,
+            "categoryId": 4,
+            "groupId": null,
+            "locationId": 15,
+            "userId": 206,
+            "contactTypeId": 1,
+            "contactName": "מיה",
+            "contactPhone": null,
+            "content": "מחפש מישהו שיעזור בציור קיר בקהילה שלנו.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-27T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-13T09:00:00",
+            "updateTime": "2026-02-13T09:00:00",
+            "distanceFromLocation": 4000,
+            "place": {
+                "city": {
+                    "id": 6,
+                    "countryId": 91,
+                    "externalId": "x6",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "ראשון לציון"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 15,
+                    "latitude": 31.96,
+                    "longitude": 34.81,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "ראשון לציון"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {
+            "id": "5",
+            "firstName": "Shachar",
+            "lastName": "Ganot",
+            "email": "shachar@gmail.com",
+            "phone": "+972502574923",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        }
+    },
+    {
+        "report": {
+            "id": 6,
+            "creationTime": "2026-02-15T08:00:00",
+            "updateTime": "2026-02-15T08:00:00",
+            "status": 3,
+            "description": "פוסט נמחק",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 106,
+            "name": "רוני",
+            "phone": "972511111111",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-06T08:00:00",
+            "updateTime": "2025-11-06T08:00:00"
+        },
+        "reportedUser": {
+            "id": 206,
+            "name": "תמר",
+            "phone": "972512222222",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-06T08:00:00",
+            "updateTime": "2025-10-06T08:00:00"
+        },
+        "request": {
+            "id": 1006,
+            "statusId": 2,
+            "urgencyLevelId": 1,
+            "categoryId": 5,
+            "groupId": null,
+            "locationId": 16,
+            "userId": 207,
+            "contactTypeId": 1,
+            "contactName": "אור",
+            "contactPhone": null,
+            "content": "רוצה למסור אופניים ישנות למי שצריך.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-28T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-14T08:00:00",
+            "updateTime": "2026-02-14T08:00:00",
+            "distanceFromLocation": 3500,
+            "place": {
+                "city": {
+                    "id": 7,
+                    "countryId": 91,
+                    "externalId": "x7",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 16,
+                    "latitude": 31.25,
+                    "longitude": 34.79,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {
+            "id": "6",
+            "firstName": "Shachar",
+            "lastName": "Ganot",
+            "email": "shachar@gmail.com",
+            "phone": "+972502574923",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        }
+    },
+    {
+        "report": {
+            "id": 7,
+            "creationTime": "2026-02-15T08:00:00",
+            "updateTime": "2026-02-15T08:00:00",
+            "status": 1,
+            "description": "פוסט נמחק",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 106,
+            "name": "רוני",
+            "phone": "972511111111",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-06T08:00:00",
+            "updateTime": "2025-11-06T08:00:00"
+        },
+        "reportedUser": {
+            "id": 206,
+            "name": "תמר",
+            "phone": "972512222222",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-06T08:00:00",
+            "updateTime": "2025-10-06T08:00:00"
+        },
+        "request": {
+            "id": 1006,
+            "statusId": 2,
+            "urgencyLevelId": 1,
+            "categoryId": 5,
+            "groupId": null,
+            "locationId": 16,
+            "userId": 207,
+            "contactTypeId": 1,
+            "contactName": "אור",
+            "contactPhone": null,
+            "content": "רוצה למסור אופניים ישנות למי שצריך.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-28T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-14T08:00:00",
+            "updateTime": "2026-02-14T08:00:00",
+            "distanceFromLocation": 3500,
+            "place": {
+                "city": {
+                    "id": 7,
+                    "countryId": 91,
+                    "externalId": "x7",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 16,
+                    "latitude": 31.25,
+                    "longitude": 34.79,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {}
+    },
+    {
+        "report": {
+            "id": 8,
+            "creationTime": "2026-02-15T08:00:00",
+            "updateTime": "2026-02-15T08:00:00",
+            "status": 2,
+            "description": "פוסט נמחק",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 106,
+            "name": "רוני",
+            "phone": "972511111111",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-06T08:00:00",
+            "updateTime": "2025-11-06T08:00:00"
+        },
+        "reportedUser": {
+            "id": 206,
+            "name": "תמר",
+            "phone": "972512222222",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-06T08:00:00",
+            "updateTime": "2025-10-06T08:00:00"
+        },
+        "request": {
+            "id": 1006,
+            "statusId": 2,
+            "urgencyLevelId": 1,
+            "categoryId": 5,
+            "groupId": null,
+            "locationId": 16,
+            "userId": 207,
+            "contactTypeId": 1,
+            "contactName": "אור",
+            "contactPhone": null,
+            "content": "רוצה למסור אופניים ישנות למי שצריך.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-28T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-14T08:00:00",
+            "updateTime": "2026-02-14T08:00:00",
+            "distanceFromLocation": 3500,
+            "place": {
+                "city": {
+                    "id": 7,
+                    "countryId": 91,
+                    "externalId": "x7",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 16,
+                    "latitude": 31.25,
+                    "longitude": 34.79,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {
+            "id": "6",
+            "firstName": "Shachar",
+            "lastName": "Ganot",
+            "email": "shachar@gmail.com",
+            "phone": "+972502574923",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        }
+    },
+    {
+        "report": {
+            "id": 9,
+            "creationTime": "2026-02-15T08:00:00",
+            "updateTime": "2026-02-15T08:00:00",
+            "status": 3,
+            "description": "פוסט נמחק",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 106,
+            "name": "רוני",
+            "phone": "972511111111",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-06T08:00:00",
+            "updateTime": "2025-11-06T08:00:00"
+        },
+        "reportedUser": {
+            "id": 206,
+            "name": "תמר",
+            "phone": "972512222222",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-06T08:00:00",
+            "updateTime": "2025-10-06T08:00:00"
+        },
+        "request": {
+            "id": 1006,
+            "statusId": 2,
+            "urgencyLevelId": 1,
+            "categoryId": 5,
+            "groupId": null,
+            "locationId": 16,
+            "userId": 207,
+            "contactTypeId": 1,
+            "contactName": "אור",
+            "contactPhone": null,
+            "content": "רוצה למסור אופניים ישנות למי שצריך.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-28T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-14T08:00:00",
+            "updateTime": "2026-02-14T08:00:00",
+            "distanceFromLocation": 3500,
+            "place": {
+                "city": {
+                    "id": 7,
+                    "countryId": 91,
+                    "externalId": "x7",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 16,
+                    "latitude": 31.25,
+                    "longitude": 34.79,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {
+            "id": "6",
+            "firstName": "Shachar",
+            "lastName": "Ganot",
+            "email": "shachar@gmail.com",
+            "phone": "+972502574923",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        }
+    },
+    {
+        "report": {
+            "id": 10,
+            "creationTime": "2026-02-15T08:00:00",
+            "updateTime": "2026-02-15T08:00:00",
+            "status": 1,
+            "description": "פוסט נמחק",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 106,
+            "name": "רוני",
+            "phone": "972511111111",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-06T08:00:00",
+            "updateTime": "2025-11-06T08:00:00"
+        },
+        "reportedUser": {
+            "id": 206,
+            "name": "תמר",
+            "phone": "972512222222",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-06T08:00:00",
+            "updateTime": "2025-10-06T08:00:00"
+        },
+        "request": {
+            "id": 1006,
+            "statusId": 2,
+            "urgencyLevelId": 1,
+            "categoryId": 5,
+            "groupId": null,
+            "locationId": 16,
+            "userId": 207,
+            "contactTypeId": 1,
+            "contactName": "אור",
+            "contactPhone": null,
+            "content": "רוצה למסור אופניים ישנות למי שצריך.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-28T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-14T08:00:00",
+            "updateTime": "2026-02-14T08:00:00",
+            "distanceFromLocation": 3500,
+            "place": {
+                "city": {
+                    "id": 7,
+                    "countryId": 91,
+                    "externalId": "x7",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 16,
+                    "latitude": 31.25,
+                    "longitude": 34.79,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {}
+    },
+    {
+        "report": {
+            "id": 11,
+            "creationTime": "2026-02-15T08:00:00",
+            "updateTime": "2026-02-15T08:00:00",
+            "status": 2,
+            "description": "פוסט נמחק",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 106,
+            "name": "רוני",
+            "phone": "972511111111",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-06T08:00:00",
+            "updateTime": "2025-11-06T08:00:00"
+        },
+        "reportedUser": {
+            "id": 206,
+            "name": "תמר",
+            "phone": "972512222222",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-06T08:00:00",
+            "updateTime": "2025-10-06T08:00:00"
+        },
+        "request": {
+            "id": 1006,
+            "statusId": 2,
+            "urgencyLevelId": 1,
+            "categoryId": 5,
+            "groupId": null,
+            "locationId": 16,
+            "userId": 207,
+            "contactTypeId": 1,
+            "contactName": "אור",
+            "contactPhone": null,
+            "content": "רוצה למסור אופניים ישנות למי שצריך.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-28T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-14T08:00:00",
+            "updateTime": "2026-02-14T08:00:00",
+            "distanceFromLocation": 3500,
+            "place": {
+                "city": {
+                    "id": 7,
+                    "countryId": 91,
+                    "externalId": "x7",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 16,
+                    "latitude": 31.25,
+                    "longitude": 34.79,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {
+            "id": "6",
+            "firstName": "Shachar",
+            "lastName": "Ganot",
+            "email": "shachar@gmail.com",
+            "phone": "+972502574923",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        }
+    },
+    {
+        "report": {
+            "id": 12,
+            "creationTime": "2026-02-15T08:00:00",
+            "updateTime": "2026-02-15T08:00:00",
+            "status": 3,
+            "description": "פוסט נמחק",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 106,
+            "name": "רוני",
+            "phone": "972511111111",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-06T08:00:00",
+            "updateTime": "2025-11-06T08:00:00"
+        },
+        "reportedUser": {
+            "id": 206,
+            "name": "תמר",
+            "phone": "972512222222",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-06T08:00:00",
+            "updateTime": "2025-10-06T08:00:00"
+        },
+        "request": {
+            "id": 1006,
+            "statusId": 2,
+            "urgencyLevelId": 1,
+            "categoryId": 5,
+            "groupId": null,
+            "locationId": 16,
+            "userId": 207,
+            "contactTypeId": 1,
+            "contactName": "אור",
+            "contactPhone": null,
+            "content": "רוצה למסור אופניים ישנות למי שצריך.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-28T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-14T08:00:00",
+            "updateTime": "2026-02-14T08:00:00",
+            "distanceFromLocation": 3500,
+            "place": {
+                "city": {
+                    "id": 7,
+                    "countryId": 91,
+                    "externalId": "x7",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 16,
+                    "latitude": 31.25,
+                    "longitude": 34.79,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {
+            "id": "6",
+            "firstName": "Shachar",
+            "lastName": "Ganot",
+            "email": "shachar@gmail.com",
+            "phone": "+972502574923",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        }
+    },
+    {
+        "report": {
+            "id": 13,
+            "creationTime": "2026-02-15T08:00:00",
+            "updateTime": "2026-02-15T08:00:00",
+            "status": 1,
+            "description": "פוסט נמחק",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 106,
+            "name": "רוני",
+            "phone": "972511111111",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-06T08:00:00",
+            "updateTime": "2025-11-06T08:00:00"
+        },
+        "reportedUser": {
+            "id": 206,
+            "name": "תמר",
+            "phone": "972512222222",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-06T08:00:00",
+            "updateTime": "2025-10-06T08:00:00"
+        },
+        "request": {
+            "id": 1006,
+            "statusId": 2,
+            "urgencyLevelId": 1,
+            "categoryId": 5,
+            "groupId": null,
+            "locationId": 16,
+            "userId": 207,
+            "contactTypeId": 1,
+            "contactName": "אור",
+            "contactPhone": null,
+            "content": "רוצה למסור אופניים ישנות למי שצריך.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-28T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-14T08:00:00",
+            "updateTime": "2026-02-14T08:00:00",
+            "distanceFromLocation": 3500,
+            "place": {
+                "city": {
+                    "id": 7,
+                    "countryId": 91,
+                    "externalId": "x7",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 16,
+                    "latitude": 31.25,
+                    "longitude": 34.79,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {}
+    },
+    {
+        "report": {
+            "id": 14,
+            "creationTime": "2026-02-15T08:00:00",
+            "updateTime": "2026-02-15T08:00:00",
+            "status": 2,
+            "description": "פוסט נמחק",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 106,
+            "name": "רוני",
+            "phone": "972511111111",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-06T08:00:00",
+            "updateTime": "2025-11-06T08:00:00"
+        },
+        "reportedUser": {
+            "id": 206,
+            "name": "תמר",
+            "phone": "972512222222",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-06T08:00:00",
+            "updateTime": "2025-10-06T08:00:00"
+        },
+        "request": {
+            "id": 1006,
+            "statusId": 2,
+            "urgencyLevelId": 1,
+            "categoryId": 5,
+            "groupId": null,
+            "locationId": 16,
+            "userId": 207,
+            "contactTypeId": 1,
+            "contactName": "אור",
+            "contactPhone": null,
+            "content": "רוצה למסור אופניים ישנות למי שצריך.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-28T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-14T08:00:00",
+            "updateTime": "2026-02-14T08:00:00",
+            "distanceFromLocation": 3500,
+            "place": {
+                "city": {
+                    "id": 7,
+                    "countryId": 91,
+                    "externalId": "x7",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 16,
+                    "latitude": 31.25,
+                    "longitude": 34.79,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {
+            "id": "6",
+            "firstName": "Shachar",
+            "lastName": "Ganot",
+            "email": "shachar@gmail.com",
+            "phone": "+972502574923",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        }
+    },
+    {
+        "report": {
+            "id": 15,
+            "creationTime": "2026-02-15T08:00:00",
+            "updateTime": "2026-02-15T08:00:00",
+            "status": 2,
+            "description": "פוסט נמחק",
+            "handledByAdminId": null
+        },
+        "reporter": {
+            "id": 106,
+            "name": "רוני",
+            "phone": "972511111111",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-11-06T08:00:00",
+            "updateTime": "2025-11-06T08:00:00"
+        },
+        "reportedUser": {
+            "id": 206,
+            "name": "תמר",
+            "phone": "972512222222",
+            "countryId": 91,
+            "languageId": 1,
+            "statusId": 3,
+            "imageUrl": null,
+            "creationTime": "2025-10-06T08:00:00",
+            "updateTime": "2025-10-06T08:00:00"
+        },
+        "request": {
+            "id": 1006,
+            "statusId": 2,
+            "urgencyLevelId": 1,
+            "categoryId": 5,
+            "groupId": null,
+            "locationId": 16,
+            "userId": 207,
+            "contactTypeId": 1,
+            "contactName": "אור",
+            "contactPhone": null,
+            "content": "רוצה למסור אופניים ישנות למי שצריך.",
+            "duration": 3600,
+            "distance": null,
+            "expirationTime": "2026-02-28T12:00:00",
+            "isActive": true,
+            "creationTime": "2026-02-14T08:00:00",
+            "updateTime": "2026-02-14T08:00:00",
+            "distanceFromLocation": 3500,
+            "place": {
+                "city": {
+                    "id": 7,
+                    "countryId": 91,
+                    "externalId": "x7",
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                },
+                "location": {
+                    "id": 16,
+                    "latitude": 31.25,
+                    "longitude": 34.79,
+                    "names": [
+                        {
+                            "languageId": 1,
+                            "name": "באר שבע"
+                        }
+                    ]
+                }
+            },
+            "images": []
+        },
+        "admin": {
+            "id": "6",
+            "firstName": "Shachar",
+            "lastName": "Ganot",
+            "email": "shachar@gmail.com",
+            "phone": "+972502574923",
+            "status": 1,
+            "createdAt": "2026-01-10T09:15:00Z",
+            "updatedAt": "2026-01-10T09:15:00Z",
+            "createdBy": 1
+        }
+    }
+]
