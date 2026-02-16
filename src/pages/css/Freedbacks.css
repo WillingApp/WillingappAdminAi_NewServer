@@ -12,3 +12,37 @@
     flex-direction: column;
     min-height: 0;
 }
+
+.Freedbacks-subjectText {
+    max-width: 300px;
+}
+
+/* Feedback Expansion Component */
+.FeedbackExpansion-container {
+    background-color: var(--mantine-color-gray-0);
+}
+
+.FeedbackExpansion-icon-open {
+    color: var(--mantine-color-blue-filled);
+}
+
+.FeedbackExpansion-icon-closed {
+    color: var(--mantine-color-green-filled);
+}
+
+.FeedbackExpansion-section-user {
+    background-color: var(--mantine-color-blue-light);
+}
+
+.FeedbackExpansion-section-content {
+    background-color: var(--mantine-color-teal-light);
+}
+
+.FeedbackExpansion-section-metadata {
+    background-color: var(--mantine-color-gray-light);
+}
+
+.FeedbackExpansion-adminAnswer {
+    background-color: var(--mantine-color-gray-1);
+    border-radius: var(--mantine-radius-sm);
+}

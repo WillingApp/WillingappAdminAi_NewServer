@@ -137,3 +137,26 @@ export interface Report {
     request: ReportRequest;
     admin?: any; // Embedded admin object found in some mock data
 }
+export interface FeedbackItem {
+    id: number;
+    creationTime: string;
+    updateTime: string;
+    email: string;
+    message: string;
+    answer: string;
+    name: string;
+    phoneNumber: string;
+    status: number; // 1 = Open, 2 = Closed
+    handledBy: number | null;
+}
+
+export interface Feedback {
+    id: number;
+    feedback: FeedbackItem;
+    admin: any; // Can be AdminUser or empty object
+}
+
+export interface FeedbackResponse extends ApiResponse<{
+    items: Feedback[];
+    total: number;
+}> { }
