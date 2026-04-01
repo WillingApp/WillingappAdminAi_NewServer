@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { useViewportSize, useDebouncedValue, useResizeObserver } from '@mantine/hooks';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useResizeObserver } from '@mantine/hooks';
 import {
     Table,
     Pagination,
@@ -34,30 +34,23 @@ export function useTablePagination(rowHeight: number, internalOffset: number = 1
     const [ref, rect] = useResizeObserver();
     const [page, setPage] = useState(1);
     const [ready, setReady] = useState(false);
+    const [take, setTake] = useState(10);
 
-    // Calculate how many rows can fit based on container height
-    const calculatedTake = useMemo(() => {
-        if (!rect.height) return 10; // Default before measurement
-        const availableHeight = rect.height - internalOffset;
-        const take = Math.max(5, Math.floor(availableHeight / rowHeight));
-        return take;
-    }, [rect.height, internalOffset, rowHeight]);
-
-    // Debounce the 'take' value to avoid excessive API calls during resize
-    const [debouncedTake] = useDebouncedValue(calculatedTake, 300);
-
-    // Mark as ready after first non-zero measurement
-    useMemo(() => {
+    // Calculate how many rows can fit based on container height ONCE
+    useEffect(() => {
         if (rect.height > 0 && !ready) {
+            const availableHeight = rect.height - internalOffset;
+            const computedTake = Math.max(5, Math.floor(availableHeight / rowHeight));
+            setTake(computedTake);
             setReady(true);
         }
-    }, [rect.height, ready]);
+    }, [rect.height, ready, internalOffset, rowHeight]);
 
     return {
         page,
         setPage,
-        take: debouncedTake,
-        skip: (page - 1) * debouncedTake,
+        take,
+        skip: (page - 1) * take,
         containerRef: ref,
         ready
     };
