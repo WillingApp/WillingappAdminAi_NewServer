@@ -17,7 +17,9 @@ async function handleResponse(response: Response) {
 
         if (response.status === 401) {
             console.warn('Unauthorized: Token might be expired.');
-            // Future: Trigger logout or token refresh
+            window.dispatchEvent(new Event('unauthorized'));
+            // Return a promise that never resolves so components don't crash before unmounting
+            return new Promise(() => {});
         }
 
         throw new Error(errorMessage);

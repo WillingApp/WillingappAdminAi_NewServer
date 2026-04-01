@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import authService, { User } from '../services/authService';
+import { notifications } from '@mantine/notifications';
 
 interface AuthContextType {
     user: User | null;
@@ -40,6 +41,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         authService.logout();
         setUser(null);
     };
+
+    useEffect(() => {
+        const handleUnauthorized = () => {
+            notifications.show({
+                title: 'החיבור הסתיים',
+                message: 'החיבור שלך פג תוקף, אנא התחבר מחדש.',
+                color: 'red',
+            });
+            authService.logout();
+            setUser(null);
+        };
+
+        window.addEventListener('unauthorized', handleUnauthorized);
+        return () => window.removeEventListener('unauthorized', handleUnauthorized);
+    }, []);
 
     return (
         <AuthContext.Provider value={{

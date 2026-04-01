@@ -3,9 +3,7 @@ import { AppShell } from '@mantine/core';
 import Header from './Header';
 import SideMenu from './SideMenu';
 import Footer from './Footer';
-import { Notifications } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
-import '@mantine/notifications/styles.css';
 import { TableSearchProvider } from '../../context/TableSearchContext';
 import './AppLayout.css';
 
@@ -16,7 +14,6 @@ interface AppLayoutProps {
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     return (
         <TableSearchProvider>
-            <Notifications position="top-right" zIndex={2077} />
             <ModalsProvider>
                 <AppShell
                     header={{ height: 70 }}
