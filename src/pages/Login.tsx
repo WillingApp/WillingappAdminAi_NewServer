@@ -16,7 +16,7 @@ import { useAuth } from '../context/AuthContext';
 import './css/Login.css';
 
 const LoginPage: React.FC = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -28,20 +28,21 @@ const LoginPage: React.FC = () => {
         setError(null);
 
         // Basic Validation
-        if (!email || !password) {
+        if (loading) return;
+        if (!username.trim() || !password.trim()) {
             setError('Please fill in all fields');
             return;
         }
 
         setLoading(true);
         try {
-            const success = await login(email, password, remember);
+            const success = await login(username, password, remember);
             if (!success) {
-                setError('Invalid email or password');
+                setError('Invalid username or password');
             }
             // Success will automatically update AuthContext and trigger re-render in App.tsx
         } catch (err) {
-            setError('An error occurred during login');
+            setError(err instanceof Error ? err.message : 'Unable to sign in. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -65,15 +66,19 @@ const LoginPage: React.FC = () => {
 
                 <form onSubmit={handleSubmit}>
                     <TextInput
-                        label="Email"
-                        placeholder="example@gmail.com"
+                        label="Username"
+                        placeholder="Your administrator username"
+                        autoComplete="username"
+                        maxLength={50}
                         required
-                        value={email}
-                        onChange={(e) => setEmail(e.currentTarget.value)}
+                        value={username}
+                        onChange={(e) => setUsername(e.currentTarget.value)}
                     />
                     <PasswordInput
                         label="Password"
                         placeholder="Your password"
+                        autoComplete="current-password"
+                        maxLength={50}
                         required
                         mt="md"
                         value={password}

@@ -12,6 +12,24 @@ export interface PaginationParams {
     };
 }
 
+export interface ApiEnvelope<T> {
+    isSuccessful: boolean;
+    statusCode: number;
+    statusMessage: string | null;
+    displayMessage: string | null;
+    description?: string | null;
+    exception?: string | null;
+    timestamp?: string | null;
+    data: T;
+}
+
+export interface ApiList<T> {
+    items: T[];
+    skip: number;
+    limit: number;
+    total: number;
+}
+
 export interface ApiResponse<T> {
     data: T;
     total: number;

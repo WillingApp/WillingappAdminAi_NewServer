@@ -42,7 +42,7 @@ class UserService {
         }
 
         const query = new URLSearchParams(queryParams).toString();
-        return request<UsersResponse>(`/User?${query}`);
+        return request<UsersResponse>(`/Admin/User?${query}`);
     }
 
     /**
