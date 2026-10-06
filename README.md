@@ -9,9 +9,24 @@ API is `https://prod.willingapp.com`; the local `.env.local` now uses that URL.
 Restart `npm start` after changing it. Create React App embeds
 this URL at build time; changing a hosting variable requires a new build.
 
-The frontend hosting provider has not been established. For a static host, publish
-`build/` and configure SPA fallback to `index.html` for paths such as `/settings`.
-This change does not deploy the frontend or configure a hosting service.
+## Vercel deployment
+
+`vercel.json` configures Create React App, the `build/` output, and the fallback
+to `index.html` for client routes such as `/login` and `/settings`. The install
+command uses `npm ci --legacy-peer-deps` for the existing React Scripts/TypeScript
+dependency combination. The build keeps existing lint findings as warnings with
+`CI=false`, following [Vercel's Create React App guidance](https://vercel.com/kb/guide/how-do-i-resolve-a-process-env-ci-true-error).
+
+Set `REACT_APP_API_BASE_URL=https://prod.willingapp.com` in the Vercel project's
+production and preview environments before deploying. Do not upload `.env.local`
+or put administrator credentials in project environment variables. Select
+`admin-management-users` as the production branch to deploy the administrator
+management implementation; it is not yet merged into `main`.
+
+Use an account with access to the target Vercel team. To keep a second account
+separate from an existing CLI login, pass `--global-config <directory>` to its
+login, link, environment, and deployment commands. Local project links in
+`.vercel/` are ignored by Git.
 
 ## Administrator accounts
 
