@@ -1,90 +1,34 @@
 import authService from './authService';
+import { ApiError, apiRequest } from './apiTransport';
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const isAuthenticationError = (error: unknown): error is ApiError => error instanceof ApiError &&
+    (error.httpStatus === 401 || [1002, 1013, 1004, 1020].includes(error.statusCode ?? -1));
 
-/**
- * Handle HTTP error responses
- */
-async function handleResponse(response: Response) {
-    if (!response.ok) {
-        let errorMessage = `HTTP Error: ${response.status}`;
-        try {
-            const errorData = await response.json();
-            errorMessage = errorData.message || errorData.error || errorMessage;
-        } catch {
-            // If response is not JSON
-        }
-
-        if (response.status === 401) {
-            console.warn('Unauthorized: Token might be expired.');
-            window.dispatchEvent(new Event('unauthorized'));
-            // Return a promise that never resolves so components don't crash before unmounting
-            return new Promise(() => {});
-        }
-
-        throw new Error(errorMessage);
-    }
-    return response.json();
-}
-
-/**
- * Common headers with Auth token
- */
-const getHeaders = () => {
-    const token = authService.getToken();
-
-    const headers: Record<string, string> = {
-        'Content-Type': 'application/json',
-    };
-
-    if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-    }
-
-    return headers;
-};
-
-/**
- * Centralized request function
- */
-export async function request<T>(
-    endpoint: string,
-    options: RequestInit = {}
-): Promise<T> {
-    const url = `${BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
-
-    const config = {
-        ...options,
-        headers: {
-            ...getHeaders(),
-            ...options.headers,
-        },
-    };
-
+export async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+    const token = await authService.getAccessToken();
     try {
-        const response = await fetch(url, config);
-        return await handleResponse(response);
-    } catch (error: any) {
-        console.error('API Request Error:', error.message);
-        throw error;
+        return await apiRequest<T>(endpoint, options, token, false);
+    } catch (error) {
+        if (!isAuthenticationError(error)) throw error;
+        if ([1004, 1020].includes(error.statusCode ?? -1)) {
+            authService.invalidateSession(token);
+            throw error;
+        }
+        const renewed = await authService.refreshSession(token);
+        // Retry once after renewal; an unsuccessful retry must settle normally.
+        try {
+            return await apiRequest<T>(endpoint, options, renewed.accessToken, false);
+        } catch (retryError) {
+            if (isAuthenticationError(retryError)) authService.invalidateSession(renewed.accessToken);
+            throw retryError;
+        }
     }
 }
 
-/**
- * Helper for POST requests
- */
-export async function post<T>(endpoint: string, data: any): Promise<T> {
-    return request<T>(endpoint, {
-        method: 'POST',
-        body: JSON.stringify(data),
-    });
+export async function post<T>(endpoint: string, data: unknown): Promise<T> {
+    return request<T>(endpoint, { method: 'POST', body: JSON.stringify(data) });
 }
 
-/**
- * Helper for DELETE requests
- */
 export async function del<T>(endpoint: string): Promise<T> {
-    return request<T>(endpoint, {
-        method: 'DELETE',
-    });
+    return request<T>(endpoint, { method: 'DELETE' });
 }

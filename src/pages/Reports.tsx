@@ -36,7 +36,9 @@ const Reports: React.FC = () => {
     const [admins, setAdmins] = useState<AdminUser[]>([]);
 
     useEffect(() => {
-        adminService.getAdmins().then(setAdmins);
+        const controller = new AbortController();
+        adminService.getAllAdmins(controller.signal).then(setAdmins).catch(() => { /* Reports can still display embedded admin data. */ });
+        return () => controller.abort();
     }, []);
 
     useEffect(() => {
@@ -237,8 +239,8 @@ const Reports: React.FC = () => {
 
                 // Priority 2: Use handledByAdminId and lookup in admins list
                 if (!adminId) return '-';
-                const admin = admins.find(a => a.id === adminId.toString());
-                const name = admin ? `${admin.firstName} ${admin.lastName}` : 'Unknown';
+                const admin = admins.find(a => a.id === adminId);
+                const name = admin ? admin.name : 'Unknown';
                 return `(${adminId}) ${name}`;
             }
         },
