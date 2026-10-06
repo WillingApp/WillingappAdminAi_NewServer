@@ -11,6 +11,10 @@ this URL at build time; changing a hosting variable requires a new build.
 
 ## Vercel deployment
 
+The dashboard is deployed to the `willing3/willing-admin` Vercel project at
+<https://willing-admin.vercel.app>. Deployments currently use the CLI; automatic
+deployments from GitHub are not connected.
+
 `vercel.json` configures Create React App, the `build/` output, and the fallback
 to `index.html` for client routes such as `/login` and `/settings`. The install
 command uses `npm ci --legacy-peer-deps` for the existing React Scripts/TypeScript
@@ -19,14 +23,21 @@ dependency combination. The build keeps existing lint findings as warnings with
 
 Set `REACT_APP_API_BASE_URL=https://prod.willingapp.com` in the Vercel project's
 production and preview environments before deploying. Do not upload `.env.local`
-or put administrator credentials in project environment variables. Select
-`admin-management-users` as the production branch to deploy the administrator
-management implementation; it is not yet merged into `main`.
+or put administrator credentials in project environment variables. Deploy from
+`admin-management-users` to use the administrator management implementation; it
+is not yet merged into `main`. If GitHub integration is added later, select that
+branch as the production branch.
 
 Use an account with access to the target Vercel team. To keep a second account
 separate from an existing CLI login, pass `--global-config <directory>` to its
 login, link, environment, and deployment commands. Local project links in
 `.vercel/` are ignored by Git.
+
+From the linked repository, deploy with the account-specific CLI configuration:
+
+```sh
+vercel deploy --prod --yes --scope willing3 --global-config <directory>
+```
 
 ## Administrator accounts
 
