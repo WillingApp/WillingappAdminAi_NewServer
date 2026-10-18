@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useResizeObserver } from '@mantine/hooks';
 import {
     Table,
@@ -28,6 +28,7 @@ interface GenericTableProps<T> {
     onPageChange: (page: number) => void;
     ExpansionComponent?: React.FC<{ data: T }>;
     emptyMessage?: string;
+    loadingMessage?: string;
 }
 
 export function useTablePagination(rowHeight: number, internalOffset: number = 100) {
@@ -66,6 +67,7 @@ export function GenericTable<T extends { id: string | number }>({
     onPageChange,
     ExpansionComponent,
     emptyMessage = 'No data found',
+    loadingMessage = 'Loading data...',
 }: GenericTableProps<T>) {
     const [expandedRow, setExpandedRow] = useState<string | number | null>(null);
 
@@ -82,7 +84,7 @@ export function GenericTable<T extends { id: string | number }>({
             <Center py="xl">
                 <Stack align="center" gap="xs">
                     <Loader size="md" />
-                    <Text size="sm" c="dimmed">Loading data...</Text>
+                    <Text size="sm" c="dimmed">{loadingMessage}</Text>
                 </Stack>
             </Center>
         );
