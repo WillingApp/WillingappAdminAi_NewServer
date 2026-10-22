@@ -1,5 +1,6 @@
 import { request, post, del } from './apiClient';
-import { PaginationParams, ApiResponse, Group, CreateGroupPayload, AddUserPayload } from './apiTypes';
+import { PaginationParams, ApiEnvelope, ApiList, Group, CreateGroupPayload, AddUserPayload } from './apiTypes';
+import { ApiError } from './apiTransport';
 import topGroupsData from '../data/TopGroupsMock.json';
 
 export interface TopGroup {
@@ -16,10 +17,8 @@ export interface TopGroupsResponse {
     topGroups: TopGroup[];
 }
 
-export interface GroupsResponse extends ApiResponse<{
-    items: Group[];
-    total: number;
-}> { }
+export interface GroupsResponse extends ApiEnvelope<ApiList<Group>> { }
+type GroupsWireResponse = ApiEnvelope<(Omit<ApiList<Group>, 'items'> & { items: Group[] | null }) | null>;
 
 /**
  * Group service to handle group-related API calls
@@ -40,17 +39,26 @@ const groupService = {
      */
     getGroups: async (params: PaginationParams): Promise<GroupsResponse> => {
         const queryParams = new URLSearchParams({
-            take: params.take.toString(),
-            skip: params.skip.toString(),
+            Take: params.take.toString(),
+            Skip: params.skip.toString(),
             IncludeTotal: 'true',
+            'Filter.ActiveOnly': 'false',
         });
 
-        if (params.Filter?.Search?.SearchTerm) {
-            queryParams.append('Filter.Search.SearchTerm', params.Filter.Search.SearchTerm);
+        const searchTerm = params.Filter?.Search?.SearchTerm?.trim();
+        if (searchTerm) {
+            searchTerm.split(/\s+/).forEach(keyword => queryParams.append('Filter.Keywords', keyword));
         }
 
-        const endpoint = `/Group?${queryParams.toString()}`;
-        return request<GroupsResponse>(endpoint);
+        const response = await request<GroupsWireResponse>(`/Admin/Group?${queryParams.toString()}`);
+        const list = response?.data;
+        if (response?.isSuccessful !== true || !list || typeof list.total !== 'number' ||
+            (!Array.isArray(list.items) && !(list.items === null && list.total === 0))) {
+            throw new ApiError('The server did not return a valid group list.');
+        }
+        return { ...response, data: { ...list, items: (list.items ?? []).map(group => ({
+            ...group, users: Array.isArray(group.users) ? group.users : [],
+        })) } };
     },
 
     /**
