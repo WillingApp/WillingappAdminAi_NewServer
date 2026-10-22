@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
     return (
         <Center h="100%">
             <Text size="sm" c="dimmed">
-                © {new Date().getFullYear()} WillingApp Admin AI. All rights reserved.
+                © {new Date().getFullYear()} WillingApp Admin. All rights reserved.
             </Text>
         </Center>
     );

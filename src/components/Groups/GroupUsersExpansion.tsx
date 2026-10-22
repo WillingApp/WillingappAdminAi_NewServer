@@ -41,6 +41,8 @@ export const GroupUsersExpansion: React.FC<GroupUsersExpansionProps> = ({ data }
                     Add Users
                 </Button>
             </Group>
+            {data.description && <Text size="sm" mb="xs">{data.description}</Text>}
+            <Text size="sm" mb="xs">קישור הקבוצה: {data.linkUrl || 'אין'}</Text>
 
             {data.users.length > 0 ? (
                 <Table variant="vertical" withTableBorder withColumnBorders={false} verticalSpacing="xs">

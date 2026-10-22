@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Title, Card, Badge, Group, ThemeIcon, Text, Avatar, Button, ActionIcon, Tooltip } from '@mantine/core';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Title, Card, Alert, Badge, Group, ThemeIcon, Text, Avatar, Button, ActionIcon, Tooltip } from '@mantine/core';
 import { IconCircleCheck, IconCircleX, IconUsers, IconTrash, IconPlus } from '@tabler/icons-react';
 import { useDebouncedValue } from '@mantine/hooks';
 import groupService from '../services/groupService';
@@ -24,10 +24,10 @@ const Groups: React.FC = () => {
     const searchTerm = searchContext?.searchTerm || '';
     const [debouncedSearch] = useDebouncedValue(searchTerm, 500);
 
-    const { data, loading, execute } = useApi(groupService.getGroups);
+    const { data, loading, error, execute } = useApi(groupService.getGroups);
 
-    const loadData = () => {
-        execute({
+    const loadData = useCallback(() => {
+        void execute({
             take,
             skip,
             Filter: debouncedSearch ? {
@@ -35,8 +35,10 @@ const Groups: React.FC = () => {
                     SearchTerm: debouncedSearch
                 }
             } : undefined
+        }).catch(() => {
+            // useApi exposes the failure in the screen.
         });
-    };
+    }, [execute, take, skip, debouncedSearch]);
 
     // Synchronize page-level settings with the global search in header
     useEffect(() => {
@@ -60,9 +62,9 @@ const Groups: React.FC = () => {
 
     useEffect(() => {
         loadData();
-    }, [execute, take, skip, debouncedSearch]);
+    }, [loadData]);
 
-    const handleDeleteGroup = async (e: React.MouseEvent, groupId: number) => {
+    const handleDeleteGroup = useCallback(async (e: React.MouseEvent, groupId: number) => {
         e.stopPropagation(); // Don't trigger row expansion
         if (!window.confirm('Are you sure you want to delete this group?')) return;
 
@@ -76,7 +78,7 @@ const Groups: React.FC = () => {
         } finally {
             setDeletingId(null);
         }
-    };
+    }, [loadData]);
 
     const columns = useMemo<ColumnDef<GroupType>[]>(() => [
         { header: 'ID', key: 'id' },
@@ -151,9 +153,9 @@ const Groups: React.FC = () => {
                 </Tooltip>
             )
         }
-    ], [deletingId]);
+    ], [deletingId, handleDeleteGroup]);
 
-    const totalItems = data?.data?.total ?? data?.total ?? 0;
+    const totalItems = data?.data?.total ?? 0;
 
     return (
         <Card
@@ -167,7 +169,7 @@ const Groups: React.FC = () => {
             <Group justify="space-between" mb="md">
                 <Group>
                     <Title order={2}>Groups Management</Title>
-                    <Badge size="lg" variant="filled">{totalItems} Total Groups</Badge>
+                    {!error && <Badge size="lg" variant="filled">{totalItems} Total Groups</Badge>}
                 </Group>
                 <Button
                     leftSection={<IconPlus size={18} />}
@@ -177,8 +179,12 @@ const Groups: React.FC = () => {
                 </Button>
             </Group>
 
+            {error && <Alert color="red" title="טעינת הקבוצות נכשלה" mb="md">
+                <Text mb="xs">{error}</Text>
+                <Button size="xs" variant="light" onClick={loadData}>ניסיון חוזר</Button>
+            </Alert>}
             <div className="Groups-tableContainer">
-                <GenericTable<GroupType>
+                {!error && <GenericTable<GroupType>
                     data={data?.data?.items || []}
                     total={totalItems}
                     columns={columns}
@@ -188,7 +194,7 @@ const Groups: React.FC = () => {
                     onPageChange={setPage}
                     ExpansionComponent={GroupUsersExpansion}
                     emptyMessage="No groups found."
-                />
+                />}
             </div>
 
             <CreateGroupModal
