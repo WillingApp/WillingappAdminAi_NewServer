@@ -1,5 +1,29 @@
 import { request } from './apiClient';
-import { PaginationParams, ApiResponse } from './apiTypes';
+import { ApiEnvelope, ApiList, PaginationParams } from './apiTypes';
+import { ApiError } from './apiTransport';
+
+export interface PostImage {
+    id: number;
+    name: string | null;
+    url: string;
+}
+
+export interface PostUser {
+    id: number;
+    name: string | null;
+    phone: string | null;
+}
+
+export interface PostGroup {
+    id: number;
+    name: string;
+    imageUrl: string | null;
+}
+
+interface PlaceName {
+    languageId: number;
+    name: string;
+}
 
 export interface Post {
     id: number;
@@ -10,94 +34,81 @@ export interface Post {
     locationId: number;
     userId: number;
     contactTypeId: number;
+    contactCountryId: number | null;
     contactName: string | null;
     contactPhone: string | null;
-    content: string;
-    duration: number;
+    content: string | null;
+    duration: number | null;
     distance: number | null;
-    expirationTime: string;
+    expirationTime: string | null;
+    isPublic: boolean;
     isActive: boolean;
     creationTime: string;
-    updateTime: string;
-    distanceFromLocation: number;
+    updateTime: string | null;
+    distanceFromLocation: number | null;
     place: {
-        city: {
-            id: number;
-            countryId: number;
-            externalId: string;
-            names: {
-                languageId: number;
-                name: string;
-            }[];
-        };
-        location: {
-            id: number;
-            latitude: number;
-            longitude: number;
-            names: {
-                languageId: number;
-                name: string;
-            }[];
-        };
-    };
-    images: any[];
-    [key: string]: any;
+        city: { names: PlaceName[] | null } | null;
+        location: { latitude: number | null; longitude: number | null; names: PlaceName[] | null } | null;
+    } | null;
+    images: PostImage[];
+    group: PostGroup | null;
+    user: PostUser | null;
+    groupName?: string | null;
 }
 
-export interface RequestsResponse extends ApiResponse<{
-    items: Post[];
-    total: number;
-}> { }
+export interface RequestsResponse extends ApiEnvelope<ApiList<Post>> { }
+interface PostWire extends Omit<Post, 'images' | 'group' | 'user'> {
+    images: PostImage[] | null;
+    group?: PostGroup | null;
+    user?: PostUser | null;
+}
+type PostListWireResponse = ApiEnvelope<(Omit<ApiList<PostWire>, 'items'> & { items: PostWire[] | null }) | null>;
 
-/**
- * Service for working with Post/Request related endpoints.
- */
-class RequestService {
-    /**
-     * Fetches requests (posts) with pagination, filtering and sorting.
-     * @param params { take, skip, Filter }
-     * @returns { data: { items: Post[], total: number } }
-     */
+function validPost(value: unknown): value is PostWire {
+    if (!value || typeof value !== 'object') return false;
+    const post = value as Partial<PostWire>;
+    return typeof post.id === 'number' && Number.isFinite(post.id) &&
+        typeof post.userId === 'number' && typeof post.statusId === 'number' &&
+        typeof post.categoryId === 'number' && typeof post.urgencyLevelId === 'number' &&
+        typeof post.creationTime === 'string' && typeof post.isActive === 'boolean' &&
+        typeof post.isPublic === 'boolean' && (post.images == null || Array.isArray(post.images));
+}
+
+function normalizePost(post: PostWire): Post {
+    return { ...post, images: Array.isArray(post.images) ? post.images.filter(image => image && typeof image.url === 'string') : [],
+        group: post.group ?? null, user: post.user ?? null };
+}
+
+const requestService = {
     async getRequests(params: PaginationParams): Promise<RequestsResponse> {
-        const queryParams: Record<string, string> = {
-            take: params.take.toString(),
-            skip: params.skip.toString(),
-            'Filter.LanguageId': '1',
-            'Filter.ActiveOnly': 'true',
-            SortField: 'timestamp',
-            SortOrder: '2',
+        const query = new URLSearchParams({
+            Take: String(params.take),
+            Skip: String(params.skip),
             IncludeTotal: 'true',
-        };
-
-        if (params.Filter?.Search?.SearchTerm) {
-            queryParams['Filter.Search.SearchTerm'] = params.Filter.Search.SearchTerm;
-        }
-
-        const query = new URLSearchParams(queryParams).toString();
-        return request<RequestsResponse>(`/Post?${query}`);
-    }
-
-    /**
-     * Updates the status of a request.
-     * @param id The ID of the request (post)
-     * @param statusId The new status ID
-     */
-    async updateRequestStatus(id: number, statusId: number): Promise<void> {
-        return request<void>(`/Post/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify({ statusId }),
         });
-    }
+        const searchTerm = params.Filter?.Search?.SearchTerm?.trim();
+        if (searchTerm) query.set('Filter.SearchTerm', searchTerm);
 
-    /**
-     * Deletes a request by changing its status to a "deleted" state.
-     * Assuming statusId 4 represents "Deleted".
-     * @param id The ID of the request
-     */
-    async deleteRequest(id: number): Promise<void> {
-        return this.updateRequestStatus(id, 4);
-    }
-}
+        const response = await request<PostListWireResponse>(`/Admin/Post?${query.toString()}`);
+        const list = response?.data;
+        if (response?.isSuccessful !== true || !list || !Number.isFinite(list.total) || list.total < 0 ||
+            (!Array.isArray(list.items) && !(list.items === null && list.total === 0)) ||
+            (Array.isArray(list.items) && !list.items.every(validPost))) {
+            throw new ApiError('The server did not return a valid post list.');
+        }
+        return { ...response, data: { ...list, items: (list.items ?? []).map(normalizePost) } };
+    },
 
-const requestService = new RequestService();
+    async getPost(postId: number): Promise<Post> {
+        const response = await request<ApiEnvelope<PostWire | null>>(`/Admin/Post/${postId}`);
+        if (response?.isSuccessful === true && response.data == null) {
+            throw new ApiError(`The admin API listed post #${postId} but returned no details for it.`);
+        }
+        if (response?.isSuccessful !== true || !validPost(response.data) || response.data.id !== postId) {
+            throw new ApiError('The server did not return valid post details.');
+        }
+        return normalizePost(response.data);
+    },
+};
+
 export default requestService;
