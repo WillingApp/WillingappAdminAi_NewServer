@@ -1,13 +1,15 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MantineProvider } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import Requests from './Requests';
 import requestService from '../services/requestService';
 import { TableSearchProvider, useTableSearch } from '../context/TableSearchContext';
 
 jest.mock('../services/requestService', () => ({ __esModule: true, default: {
-    getRequests: jest.fn(), getPost: jest.fn(),
+    getRequests: jest.fn(), getPost: jest.fn(), deletePost: jest.fn(),
 } }));
+jest.mock('@mantine/notifications', () => ({ notifications: { show: jest.fn() } }));
 jest.mock('../context/MetadataContext', () => ({ useMetadata: () => ({
     getTranslation: (type, id) => `${type} ${id}`,
 }) }));
@@ -50,16 +52,21 @@ beforeEach(() => {
     jest.clearAllMocks();
     requestService.getRequests.mockResolvedValue(list());
     requestService.getPost.mockResolvedValue(post);
+    requestService.deletePost.mockResolvedValue(undefined);
 });
 
-test('shows inactive posts with disabled actions, pagination, and search', async () => {
+test('shows inactive posts with Delete available, Close disabled, pagination, and search', async () => {
     requestService.getRequests.mockResolvedValue(list([post], 25));
     renderRequests();
     expect(await screen.findByText('Need medicine')).toBeInTheDocument();
     expect(screen.getByText('Nora')).toBeInTheDocument();
     expect(screen.getByText('Helpers')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Close request unavailable' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'Delete request unavailable' })).toBeDisabled();
+    fireEvent.click(screen.getByRole('button', { name: 'Delete post #12' }));
+    expect(await screen.findByRole('dialog')).toHaveTextContent('Delete post #12?');
+    expect(screen.queryByText('Request #12')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+    expect(requestService.deletePost).not.toHaveBeenCalled();
     expect(requestService.getRequests).toHaveBeenCalledWith(expect.objectContaining({ take: 10, skip: 0 }));
 
     fireEvent.click(screen.getByRole('button', { name: '2' }));
@@ -68,6 +75,53 @@ test('shows inactive posts with disabled actions, pagination, and search', async
     await waitFor(() => expect(requestService.getRequests).toHaveBeenCalledWith(expect.objectContaining({
         skip: 0, Filter: { Search: { SearchTerm: 'medicine' } },
     })), { timeout: 2000 });
+});
+
+test('confirmed deletion runs once, shows success, and reloads the list', async () => {
+    let finishDelete;
+    requestService.deletePost.mockReturnValue(new Promise(resolve => { finishDelete = resolve; }));
+    requestService.getRequests.mockResolvedValueOnce(list()).mockResolvedValueOnce(list([], 0));
+    renderRequests();
+    fireEvent.click(await screen.findByRole('button', { name: 'Delete post #12' }));
+    const confirm = await screen.findByRole('button', { name: 'Confirm delete post' });
+    fireEvent.click(confirm);
+    fireEvent.click(confirm);
+    expect(requestService.deletePost).toHaveBeenCalledTimes(1);
+    expect(requestService.deletePost).toHaveBeenCalledWith(12);
+    expect(confirm).toBeDisabled();
+
+    await act(async () => { finishDelete(); });
+    expect(await screen.findByText('No requests found.')).toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+    expect(notifications.show).toHaveBeenCalledWith(expect.objectContaining({ title: 'Post deleted', color: 'green' }));
+    expect(requestService.getPost).not.toHaveBeenCalled();
+});
+
+test('deletion failure leaves the confirmation open and allows retry', async () => {
+    requestService.deletePost.mockRejectedValueOnce(new Error('API did not confirm deletion'));
+    renderRequests();
+    fireEvent.click(await screen.findByRole('button', { name: 'Delete post #12' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Confirm delete post' }));
+    expect(await screen.findByText('API did not confirm deletion')).toBeInTheDocument();
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(screen.getAllByText('Need medicine')).toHaveLength(2);
+    expect(notifications.show).not.toHaveBeenCalled();
+
+    requestService.getRequests.mockResolvedValueOnce(list([], 0));
+    fireEvent.click(screen.getByRole('button', { name: 'Confirm delete post' }));
+    expect(await screen.findByText('No requests found.')).toBeInTheDocument();
+    expect(requestService.deletePost).toHaveBeenCalledTimes(2);
+});
+
+test('deleting the only post on a later page returns to the previous page', async () => {
+    requestService.getRequests.mockResolvedValue(list([post], 11));
+    renderRequests();
+    fireEvent.click(await screen.findByRole('button', { name: '2' }));
+    await waitFor(() => expect(requestService.getRequests).toHaveBeenCalledWith(expect.objectContaining({ skip: 10 })));
+    requestService.getRequests.mockClear();
+    fireEvent.click(screen.getByRole('button', { name: 'Delete post #12' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Confirm delete post' }));
+    await waitFor(() => expect(requestService.getRequests).toHaveBeenCalledWith(expect.objectContaining({ skip: 0 })));
 });
 
 test('fetches full details, publisher, group, and image on expansion', async () => {

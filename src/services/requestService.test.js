@@ -62,3 +62,26 @@ test('detail uses the administrator route and validates the requested post', asy
     fetch.mockResolvedValueOnce(reply(successful(null)));
     await expect(requestService.getPost(12)).rejects.toThrow('listed post #12 but returned no details');
 });
+
+test('delete uses the administrator route and requires the deleted post ID', async () => {
+    fetch.mockResolvedValueOnce(reply(successful({ id: 12 })));
+    await expect(requestService.deletePost(12)).resolves.toBeUndefined();
+    const [url, options] = fetch.mock.calls[0];
+    expect(new URL(url).pathname).toBe('/Admin/Post/12');
+    expect(options.method).toBe('DELETE');
+    expect(options.headers.get('Authorization')).toBe('Bearer admin-token');
+
+    fetch.mockResolvedValueOnce(reply(successful(null)));
+    await expect(requestService.deletePost(12)).rejects.toThrow('did not confirm deletion');
+    fetch.mockResolvedValueOnce(reply(successful({ id: 13 })));
+    await expect(requestService.deletePost(12)).rejects.toThrow('did not confirm deletion');
+    await expect(requestService.deletePost(-1)).rejects.toThrow('valid post ID');
+    expect(fetch).toHaveBeenCalledTimes(3);
+});
+
+test('delete rejects API and transport failures', async () => {
+    fetch.mockResolvedValueOnce(reply({ isSuccessful: false, statusCode: 1024, displayMessage: 'Not allowed' }));
+    await expect(requestService.deletePost(12)).rejects.toThrow('Not allowed');
+    fetch.mockResolvedValueOnce(reply(null, 403));
+    await expect(requestService.deletePost(12)).rejects.toThrow('HTTP 403');
+});

@@ -109,6 +109,18 @@ const requestService = {
         }
         return normalizePost(response.data);
     },
+
+    async deletePost(postId: number): Promise<void> {
+        if (!Number.isInteger(postId) || postId <= 0) {
+            throw new ApiError('A valid post ID is required to delete a post.');
+        }
+        const response = await request<ApiEnvelope<{ id: number } | null>>(`/Admin/Post/${postId}`, {
+            method: 'DELETE',
+        });
+        if (response?.isSuccessful !== true || response.data?.id !== postId) {
+            throw new ApiError(`The admin API did not confirm deletion of post #${postId}.`);
+        }
+    },
 };
 
 export default requestService;
